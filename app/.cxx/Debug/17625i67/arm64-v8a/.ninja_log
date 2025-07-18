@@ -1,0 +1,11 @@
+# ninja log v5
+0	731	679176080	CMakeFiles/native_01.dir/native_01.cpp.o	ca13d576ccc04b17
+732	792	679176080	E:/Desktop/native/native_05/app/build/intermediates/cxx/Debug/17625i67/obj/arm64-v8a/libnative_01.so	98168489eb60f449
+3	840	679247355	CMakeFiles/native_01.dir/native_01.cpp.o	ca13d576ccc04b17
+840	953	679247355	E:/Desktop/native/native_05/app/build/intermediates/cxx/Debug/17625i67/obj/arm64-v8a/libnative_01.so	98168489eb60f449
+2	458	679250450	CMakeFiles/native_01.dir/native_01.cpp.o	ca13d576ccc04b17
+2	50	679250500	E:/Desktop/native/native_05/app/build/intermediates/cxx/Debug/17625i67/obj/arm64-v8a/libnative_01.so	98168489eb60f449
+3	462	679251166	CMakeFiles/native_01.dir/native_01.cpp.o	ca13d576ccc04b17
+462	511	679251166	E:/Desktop/native/native_05/app/build/intermediates/cxx/Debug/17625i67/obj/arm64-v8a/libnative_01.so	98168489eb60f449
+4	477	679251175	CMakeFiles/native_01.dir/native_01.cpp.o	ca13d576ccc04b17
+477	524	679251175	E:/Desktop/native/native_05/app/build/intermediates/cxx/Debug/17625i67/obj/arm64-v8a/libnative_01.so	98168489eb60f449

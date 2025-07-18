@@ -1,0 +1,6 @@
+# ninja log v5
+0	549	679510826	CMakeFiles/native_01.dir/native_01.cpp.o	9b1e16c84c5c547f
+550	614	679510826	E:/Desktop/native/native_07_0.001.0001/app/build/intermediates/cxx/RelWithDebInfo/4x857256/obj/x86_64/libnative_01.so	e62adf4972c18d68
+0	6	0	clean	a4674d3321257be7
+1	544	679749251	CMakeFiles/sk_main.dir/sk_main.cpp.o	45a380d226f2220f
+544	804	679749251	E:/Desktop/native/native_07_0.001.0001/app/build/intermediates/cxx/RelWithDebInfo/4x857256/obj/x86_64/libsk_main.so	b367d4c6fdb17411

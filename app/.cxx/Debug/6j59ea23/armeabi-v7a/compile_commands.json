@@ -1,0 +1,7 @@
+[
+{
+  "directory": "E:/Desktop/native_07_0.001.0002/app/.cxx/Debug/6j59ea23/armeabi-v7a",
+  "command": "D:\\Android\\SDK\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi21 --sysroot=D:/Android/SDK/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsk_main_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\sk_main.dir\\sk_main.cpp.o -c E:\\Desktop\\native_07_0.001.0002\\app\\src\\main\\cpp\\sk_main.cpp",
+  "file": "E:\\Desktop\\native_07_0.001.0002\\app\\src\\main\\cpp\\sk_main.cpp"
+}
+]

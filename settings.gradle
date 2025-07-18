@@ -1,16 +1,27 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
+//        maven { url 'https://maven.aliyun.com/repository/google' }
+//        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+//        maven{ url 'https://maven.aliyun.com/repository/public'}
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://www.jitpack.io' }
+        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+//        maven { url 'https://maven.aliyun.com/repository/google' }
+//        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+//        maven{ url 'https://maven.aliyun.com/repository/public'}
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://www.jitpack.io' }
+        gradlePluginPortal()
     }
 }
-rootProject.name = "native_05"
+rootProject.name = "native_07_0.001.0002"
 include ':app'

@@ -1,0 +1,3 @@
+E:/Desktop/native/native_07_0.001.0001/app/.cxx/RelWithDebInfo/4x857256/arm64-v8a/CMakeFiles/sk_main.dir
+E:/Desktop/native/native_07_0.001.0001/app/.cxx/RelWithDebInfo/4x857256/arm64-v8a/CMakeFiles/edit_cache.dir
+E:/Desktop/native/native_07_0.001.0001/app/.cxx/RelWithDebInfo/4x857256/arm64-v8a/CMakeFiles/rebuild_cache.dir

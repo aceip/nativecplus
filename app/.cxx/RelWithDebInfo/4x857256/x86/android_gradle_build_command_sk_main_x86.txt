@@ -1,0 +1,7 @@
+Executable : E:\Android\sdk\cmake\3.18.1\bin\ninja.exe
+arguments : 
+-C
+E:\Desktop\native\native_07_0.001.0001\app\.cxx\RelWithDebInfo\4x857256\x86
+sk_main
+jvmArgs : 
+

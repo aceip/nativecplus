@@ -1,0 +1,18 @@
+# ninja log v5
+3	519	679749135	CMakeFiles/native_01.dir/sk_main.cpp.o	a9076bb72a1eac45
+2	531	679749083	CMakeFiles/native_01.dir/native_01.cpp.o	a1c2ee1102f59f39
+519	566	679749135	E:/Desktop/native/native_07_0.001.0001/app/build/intermediates/cxx/Debug/3l3z1u2l/obj/arm64-v8a/libnative_01.so	16734918c6d07af9
+2	544	679749900	CMakeFiles/sk_main.dir/sk_main.cpp.o	8d38c8d327218568
+544	592	679749900	E:/Desktop/native/native_07_0.001.0001/app/build/intermediates/cxx/Debug/3l3z1u2l/obj/arm64-v8a/libsk_main.so	ad55de3c90edc995
+2	532	679749906	CMakeFiles/sk_main.dir/sk_main.cpp.o	8d38c8d327218568
+533	582	679749906	E:/Desktop/native/native_07_0.001.0001/app/build/intermediates/cxx/Debug/3l3z1u2l/obj/arm64-v8a/libsk_main.so	ad55de3c90edc995
+2	545	679750120	CMakeFiles/sk_main.dir/sk_main.cpp.o	8d38c8d327218568
+545	594	679750120	E:/Desktop/native/native_07_0.001.0001/app/build/intermediates/cxx/Debug/3l3z1u2l/obj/arm64-v8a/libsk_main.so	ad55de3c90edc995
+3	546	679750152	CMakeFiles/sk_main.dir/sk_main.cpp.o	8d38c8d327218568
+546	594	679750152	E:/Desktop/native/native_07_0.001.0001/app/build/intermediates/cxx/Debug/3l3z1u2l/obj/arm64-v8a/libsk_main.so	ad55de3c90edc995
+2	522	679750162	CMakeFiles/sk_main.dir/sk_main.cpp.o	8d38c8d327218568
+522	571	679750162	E:/Desktop/native/native_07_0.001.0001/app/build/intermediates/cxx/Debug/3l3z1u2l/obj/arm64-v8a/libsk_main.so	ad55de3c90edc995
+2	543	679750169	CMakeFiles/sk_main.dir/sk_main.cpp.o	8d38c8d327218568
+543	591	679750169	E:/Desktop/native/native_07_0.001.0001/app/build/intermediates/cxx/Debug/3l3z1u2l/obj/arm64-v8a/libsk_main.so	ad55de3c90edc995
+3	534	679750177	CMakeFiles/sk_main.dir/sk_main.cpp.o	8d38c8d327218568
+535	582	679750177	E:/Desktop/native/native_07_0.001.0001/app/build/intermediates/cxx/Debug/3l3z1u2l/obj/arm64-v8a/libsk_main.so	ad55de3c90edc995

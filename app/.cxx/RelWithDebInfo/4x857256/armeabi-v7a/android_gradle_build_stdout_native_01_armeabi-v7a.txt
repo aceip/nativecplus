@@ -1,0 +1,2 @@
+ninja: Entering directory `E:\Desktop\native\native_07_0.001.0001\app\.cxx\RelWithDebInfo\4x857256\armeabi-v7a'
+ninja: no work to do.

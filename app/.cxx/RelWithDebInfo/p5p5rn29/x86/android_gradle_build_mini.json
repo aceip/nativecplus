@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "E:\\Desktop\\native_07_0.001.0002\\app\\src\\main\\cpp\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "D:\\Android\\SDK\\cmake\\3.18.1\\bin\\ninja.exe",
+      "-C",
+      "E:\\Desktop\\native_07_0.001.0002\\app\\.cxx\\RelWithDebInfo\\p5p5rn29\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "D:\\Android\\SDK\\cmake\\3.18.1\\bin\\ninja.exe",
+    "-C",
+    "E:\\Desktop\\native_07_0.001.0002\\app\\.cxx\\RelWithDebInfo\\p5p5rn29\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "sk_main::@6890427a1f51a3e7e1df": {
+      "artifactName": "sk_main",
+      "abi": "x86",
+      "output": "E:\\Desktop\\native_07_0.001.0002\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\p5p5rn29\\obj\\x86\\libsk_main.so",
+      "runtimeFiles": []
+    }
+  }
+}

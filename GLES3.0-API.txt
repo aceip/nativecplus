@@ -1,0 +1,1336 @@
+API:
+1.void glActiveTexture（GLenum texture）;
+    功能：设置激活的纹理单元(texture unit)
+2.glAttachShader (GLuint program, GLuint shader);
+    功能：将shader容器添加到程序中。
+    参数：program：着色器程序容器的id。
+         shader：要添加的顶点或者片元shader容器的id。
+3.glBindAttribLocation (GLuint program, GLuint index, const GLchar name);
+    功能：把“顶点属性索引”绑定到“顶点属性名”。
+    参数：program：着色器程序容器的id。
+         index：顶点属性索引。
+         name：顶点属性名。
+4.glBindBuffer (GLenum target, GLuint buffer);
+    功能：使用生成过的缓冲区
+    参数：target：指定缓冲区的目标类型，可以取
+                缓冲区目标类型                 用途
+                GL_ARRAY_BUFFER             Vertex attributes 说明该缓冲区存放顶点属性（位置、颜色、纹理等）
+                GL_ATOMIC_COUNTER_BUFFER    Atomic counter storage
+                GL_COPY_READ_BUFFER         Buffer copy source
+                GL_COPY_WRITE_BUFFER        Buffer copy destination
+                GL_DISPATCH_INDIRECT_BUFFER     Indirect compute dispatch commands
+                GL_DRAW_INDIRECT_BUFFER     Indirect command arguments
+                GL_ELEMENT_ARRAY_BUFFER     Vertex array indices 说明该缓冲区存放顶点索引数组
+                GL_PIXEL_PACK_BUFFER        Pixel read target 像素压包操作缓冲区，所谓的像素压包操作就是对像素重新进行格式化，比如以前像素是按照RGB每个颜色分量8个位存储的，压包后可以是按照RGB每个颜色分量268位的方式存储
+                GL_PIXEL_UNPACK_BUFFER      Texture data source 像素解包操作缓冲区，与压包操作相反
+                GL_QUERY_BUFFER             Query result buffer
+                GL_SHADER_STORAGE_BUFFER    Read-write storage for shaders
+                GL_TEXTURE_BUFFER           Texture data buffer
+                GL_TRANSFORM_FEEDBACK_BUFFER     Transform feedback buffer
+                GL_UNIFORM_BUFFER           Uniform block storage
+5.glBindFramebuffer (GLenum target, GLuint framebuffer);
+    功能：使用帧缓冲区
+    参数：target:指定帧缓冲区的使用操作类型，可以取GL_DRAW_FRAMEBUFFER, GL_READ_FRAMEBUFFER or GL_FRAMEBUFFER之一。GL_DRAW_FRAMEBUFFER对帧缓冲区进行写操作（渲染）（这种情况就无法读取帧缓冲区中的颜色、深度等信息，经测试仍能通过glReadPixels读取颜色和深度信息！！！！），GL_READ_FRAMEBUFFER 对帧缓冲区进行读操作，GL_FRAMEBUFFER可以对帧缓冲区进行读写操作。
+         framebuffer:创建帧缓冲区时的标识
+6.glBindRenderbuffer (GLenum target, GLuint renderbuffer);
+    功能：绑定一个命名的渲染缓冲区对象
+    参数：target:指定renderbuffer对象绑定到的目标。 符号常量必须为GL_RENDERBUFFER
+         renderbuffer:指定渲染缓冲区对象的名称。
+7.glBindTexture (GLenum target, GLuint texture);
+    功能：实现了将调用glGenTextures函数生成的纹理的名字绑定到对应的目标纹理上：函数说明：允许建立一个绑定到目标纹理的有名称的纹理。例如，一幅具有真实感的图像或者照片作为纹理贴到一个矩形上，就可以在定义纹理对象生成纹理对象数组后，通过使用glBindTexture选择纹理对象，来完成该纹理对象的定义。
+    参数：target：纹理被绑定的目标，它只能取值GL_TEXTURE_1D或者GL_TEXTURE_2D；
+         texture ：纹理的名称，且该纹理的名称在当前的应用中不能被再次使用。
+8.glBlendColor (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+    功能：可用于计算源和目标混合因子
+9.glBlendEquation (GLenum mode);
+    功能：设置混合的运算符
+    参数：GL_FUNC_ADD：默认选项，将两个分量相加：C¯result=Src+Dst。
+         GL_FUNC_SUBTRACT：将两个分量相减： C¯result=Src−Dst。
+         GL_FUNC_REVERSE_SUBTRACT：将两个分量相减，但顺序相反：C¯result=Dst−Src。
+10.glBlendFunc(GLenum sfactor,GLenum dfactor);
+    功能：可以使用将输入（源）RGBA值与帧缓冲区中已有的RGBA值（目标值）混合的函数来绘制像素。
+    参数：sfactor指定如何计算红色，绿色，蓝色和alpha源混合因子。
+         dfactor指定如何计算红色，绿色，蓝色和alpha目标混合因子。
+    两个参数可通用的取值：
+                GL_ZERO	因子等于0
+                GL_ONE	因子等于1
+                GL_SRC_COLOR	因子等于源颜色向量C¯source
+                GL_ONE_MINUS_SRC_COLOR	因子等于1−C¯source
+                GL_DST_COLOR	因子等于目标颜色向量C¯destination
+                GL_ONE_MINUS_DST_COLOR	因子等于1−C¯destination
+                GL_SRC_ALPHA	因子等于C¯source的alpha分量
+                GL_ONE_MINUS_SRC_ALPHA	因子等于1− C¯source的alpha分量
+                GL_DST_ALPHA	因子等于C¯destination的alpha分量
+                GL_ONE_MINUS_DST_ALPHA	因子等于1− C¯destination的alpha分量
+                GL_CONSTANT_COLOR	因子等于常数颜色向量C¯constant
+                GL_ONE_MINUS_CONSTANT_COLOR	因子等于1−C¯constant
+                GL_CONSTANT_ALPHA	因子等于C¯constant的alpha分量
+                GL_ONE_MINUS_CONSTANT_ALPHA
+11.glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+    功能：可以使用将输入（源）RGBA值与帧缓冲区中已有的RGBA值（目标值）混合的函数来绘制像素
+    使用参数GL_BLEND调用glEnable和glDisable以启用和禁用混合。
+        glEnable( GL_BLEND );  开启混合
+        glDisable( GL_BLEND );  关闭混合
+    glBufferData 和 glNamedBufferData 都是给缓存对象创建新的数据.glBufferData 的缓存对象是当前绑定到 target 中使用的。而 glNamedBufferData的话，缓存对象是个一个buffer的ID。
+12.glBufferData (GLenum target, GLsizeiptr size, const void data, GLenum usage);
+     功能：为当前绑定到target的缓冲区对象创建一个新的数据存储，删除任何预先存在的数据存储。
+     参数：target指定目标缓冲区对象。 符号常量必须为GL_ARRAY_BUFFER或GL_ELEMENT_ARRAY_BUFFER。
+          size指定缓冲区对象的新数据存储的大小（以字节为单位）。
+          data指定将复制到数据存储区以进行初始化的数据的指针，如果不复制数据，则指定NULL。
+          usage指定数据存储的预期使用模式。 符号常量必须为GL_STREAM_DRAW，GL_STATIC_DRAW或GL_DYNAMIC_DRAW。
+13.glBufferSubData (GLenum target, GLintptr offset, GLsizeiptr size, const void *data);
+     功能：重新定义当前绑定到target的缓冲区对象的部分或全部数据存储
+     参数：target指定目标缓冲区对象。符号常量必须为GL_ARRAY_BUFFER或GL_ELEMENT_ARRAY_BUFFER。
+          offset指定缓冲区对象的数据存储中的需要数据替换偏移量，以字节为单位进行测量。
+          size指定要替换的数据存储区域的大小（以字节为单位）。
+          data指定指向将复制到数据存储中的新数据的指针。
+14.GLenum glCheckFramebufferStatus（GLenum target）;
+     功能：glCheckFramebufferStatus返回一个符号常量，用于标识当前绑定的帧缓冲是否为帧缓冲完成，如果不是“完成”，则返回违反帧缓冲完整性的哪个规则的标识。
+     参数：target指定目标帧缓冲区对象。 符号常量必须是GL_FRAMEBUFFER。
+     描述：  如果帧缓冲完成，则返回GL_FRAMEBUFFER_COMPLETE。如果帧缓冲未完成，则返回值是GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT
+            并非所有帧缓冲附加点都是帧缓冲附件完成。 这意味着附加渲染缓冲区或纹理的至少一个附着点的附加对象不再存在，可能是具有宽度或高度为零的附加图像，或者颜色附加点附加了不可着色的图像， 或深度附着点附有非深度可渲染图像，或者模板附着点附有非模板可渲染图像。
+            颜色可渲染格式包括GL_RGBA4，GL_RGB5_A1和GL_RGB565。
+            GL_DEPTH_COMPONENT16是唯一可深度渲染的格式。 GL_STENCIL_INDEX8是唯一的模板可渲染格式。
+            GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS并非所有附加图像都具有相同的宽度和高度。
+            GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT没有图像附加到帧缓冲区。
+            GL_FRAMEBUFFER_UNSUPPORTED附加图像的内部格式的组合违反了依赖于实现的一组限制。
+            如果当前绑定的帧缓冲区不是帧缓冲区完成，则尝试使用帧缓冲区进行写入或读取是错误的。 这意味着渲染命令（glClear，glDrawArrays和glDrawElements）
+            以及读取帧缓冲区（glReadPixels，glCopyTexImage2D和glCopyTexSubImage2D）的命令将在帧缓冲区未完成帧缓冲区时调用时生成错误GL_INVALID_FRAMEBUFFER_OPERATION。
+15.void glClear（GLbitfield mask）;
+    功能：glClear将窗口的位平面区域设置为先前由glClearColor，glClearDepthf和glClearStencil设置的值。glClear采用单个参数，指示要清除哪个缓冲区。
+    参数：mask使用掩码的按位异或运算来表示要清除的缓冲区。 三个掩码是
+        GL_COLOR_BUFFER_BIT：表示当前启用了颜色写入的缓冲区。
+        GL_DEPTH_BUFFER_BIT:深度缓冲区。
+        GL_STENCIL_BUFFER_BIT:指示模板缓冲区。
+16.void glClearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
+    功能：glClearColor为glClear清除颜色缓冲区时指定RGBA值（也就是所有的颜色都会被替换成指定的RGBA值）。每个值的取值范围都是0.0~1.0，超出范围的将被截断。
+17.void glClearDepthf(GLclampf depth);
+    功能：glClearDepthf指定glClear用于清除深度缓冲区的深度值。 glClearDepthf指定的值被限制在0~1范围内。
+    参数：depth指定清除深度缓冲区时使用的深度值。初始值为1。
+18.void glClearStencil(GLint s);
+	功能：glClearStencil指定glClear用于清除模板缓冲区的索引。 s被设置为2^m - 1，其中m是模板缓冲区中的位数。
+	参数：s指定清除模板缓冲区时使用的索引。初始值为0。
+19.void glColorMask(GLboolean red,GLboolean green,GLboolean blue,GLboolean alpha);
+    功能：glColorMask指定是否可以写入帧缓冲区中的各个颜色分量。 例如，如果红色为GL_FALSE，则无论是否尝试绘制操作，都不会对任何颜色缓冲区中任何像素的红色分量进行任何更改。无法控制对组件各个位的更改。 而是为整个颜色组件启用或禁用更改。
+	参数：red, green, blue, alpha指定是否可以将红色，绿色，蓝色和alpha写入帧缓冲区。 初始值均为GL_TRUE，表示可以写入颜色分量。
+20.void glCompileShader（GLuint shader）;
+	功能：glCompileShader - 编译一个着色器对象。
+	描述：对于支持着色器编译器的实现，glCompileShader编译已存储在shader指定的着色器对象中的源代码字符串。编译状态将存储为着色器对象的状态的一部分。 如果着色器编译时没有错误并且可以使用，则此值将设置为GL_TRUE，否则将设置为GL_FALSE。 可以通过使用参数shader和GL_COMPILE_STATUS调用glGetShaderiv来查询状态值。由于OpenGL ES着色语言规范指定的多种原因，着色器的编译可能会失败，因此无论编译是否成功，都可以通过调用glGetShaderInfoLog从着色器对象的信息日志中获取有关编译的信息。
+	参数：shader指定要编译的着色器对象。	注意：着色器编译器支持是可选的，因此必须在使用之前通过使用参数GL_SHADER_COMPILER调用glGet来查询。glShaderSource，glCompileShader，glGetShaderPrecisionFormat，glReleaseShaderCompiler等在不支持着色器编译器的实现上都将生成GL_INVALID_OPERATION。这样的实现提供了glShaderBinary替代方案，用于提供预编译的着色器二进制文件。
+21.void glCompressedTexImage2D(GLenum target,GLint level,GLenum internalformat,GLsizei width,GLsizei height,GLint border,GLsizei imageSize,const GLvoid * data);
+	功能：glCompressedTexImage2D - 以压缩格式指定二维纹理图像。	描述：将指定纹理图像的一部分映射到纹理处于活动状态的每个图形基元上。当前片段着色器或顶点着色器使用内置纹理查找功能时，纹理处于活动状态。glCompressedTexImage2D使用来自客户端内存的压缩图像数据定义二维纹理图像或立方体贴图纹理图像。根据定义指定内部格式的扩展规范来解码纹理图像。 OpenGL ES没有定义特定的压缩纹理格式，但确实提供了一种机制来获取扩展提供的这种格式的符号常量。通过查询GL_NUM_COMPRESSED_TEXTURE_FORMATS的值可以获得支持的压缩纹理格式的数量。支持的特定压缩纹理格式列表可以通过查询GL_COMPRESSED_TEXTURE_FORMATS的值来获得。
+    参数：target：指定活动纹理单元的目标纹理。必须是GL_TEXTURE_2D，GL_TEXTURE_CUBE_MAP_POSITIVE_X，GL_TEXTURE_CUBE_MAP_NEGATIVE_X，GL_TEXTURE_CUBE_MAP_POSITIVE_Y，
+		  GL_TEXTURE_CUBE_MAP_NEGATIVE_Y，GL_TEXTURE_CUBE_MAP_POSITIVE_Z或GL_TEXTURE_CUBE_MAP_NEGATIVE_Z。 
+		  level：指定详细级别。 0级是基本图像级别。级别n是第n个mipmap缩小图像。
+		  internalformat：指定存储在地址数据中的压缩图像数据的格式。
+		  width：指定纹理图像的宽度。所有实现都支持至少64个纹素宽的2D纹理图像和至少16个纹素宽的立方体映射纹理图像。
+		  height：指定纹理图像的高度。所有实现都支持至少64个纹素高的2D纹理图像和至少16个纹素高的立方体映射纹理图像。
+		  border：指定边框的宽度。必须为0。
+		  imageSize：指定从data指定的地址开始的图像数据的无符号字节数。
+		  data：指定指向内存中压缩图像数据的指针。
+	注意：GL实现可以选择以其选择的任何内部分辨率存储纹理数组。glCompressedTexImage2D指定使用glActiveTexture指定的纹理单元的二维或立方体贴图纹理。
+22.void glCompressedTexSubImage2D(GLenum target,GLint level,GLint xoffset,GLint yoffset,GLsizei width,GLsizei height,GLenum format,GLsizei imageSize,const GLvoid * data);
+	功能：glCompressedTexSubImage2D -  以压缩格式指定二维纹理子图像
+	描述：将指定纹理图像的一部分映射到纹理处于活动状态的每个图形基元上。当前片段着色器或顶点着色器使用内置纹理查找功能时，纹理处于活动状态。
+		  glCompressedTexSubImage2D重新定义了现有二维纹理图像的连续子区域。数据引用的纹素将现有纹理数组的部分替换为x索引xoffset和xoffset + width - 1，
+	      以及y索引yoffset和yoffset + height - 1（包括0和yoffset）。该区域可能不包括纹理数组范围之外的任何纹素，如最初指定的那样。指定宽度为0的子纹理不是错误，但这样的规范没有效果。
+		  format必须与glCompressedTexImage2D先前指定的扩展名指定的压缩纹理格式相同。
+	参数：target：指定活动纹理单元的目标纹理。必须是GL_TEXTURE_2D，GL_TEXTURE_CUBE_MAP_POSITIVE_X，GL_TEXTURE_CUBE_MAP_NEGATIVE_X，GL_TEXTURE_CUBE_MAP_POSITIVE_Y，
+			GL_TEXTURE_CUBE_MAP_NEGATIVE_Y，GL_TEXTURE_CUBE_MAP_POSITIVE_Z或GL_TEXTURE_CUBE_MAP_NEGATIVE_Z。
+		  level：指定详细级别。 0级是基本图像级别。级别n是第n个mipmap缩小图像。
+		  xoffset：指定纹理数组中x方向的纹素偏移。
+		  yoffset：指定纹理数组内y方向的纹素偏移量。
+		  width：指定纹理子图像的宽度。
+		  height：指定纹理子图像的高度。
+		  format：指定存储在地址数据中的压缩图像数据的格式。
+		  imageSize：指定从data指定的地址开始的图像数据的无符号字节数。
+		  data：指定指向内存中压缩图像数据的指针。
+23.void glCopyTexImage2D(GLenum target,GLint level,GLenum internalformat,GLint x,GLint y,GLsizei width,GLsizei height,GLint border);
+	功能：glCopyTexImage2D - 将像素复制到2D纹理图像中
+	描述：将指定纹理图像的一部分映射到纹理处于活动状态的每个图元上。当前片段着色器或顶点着色器使用内置纹理查找功能时，纹理处于活动状态。
+	      glCopyTexImage2D定义了二维纹理图像或立方体贴图纹理图像，其中包含来自当前帧缓冲区的像素（而不是来自客户端内存，如glTexImage2D的情况）。
+		  屏幕对齐的像素矩形，左下角为（x，y），宽度为width，高度为height，定义了由level指定的mipmap级别的纹理数组。 internalformat指定纹理数组的内部格式。
+		  处理矩形中的像素就像调用format设置为GL_RGBA的glReadPixels一样，但是在转换RGBA值之后，该过程就会停止。后续处理与glTexImage2D描述的处理相同，首先将R，G，B和A值截断到0 ~1范围，然后转换为纹理的内部格式以存储在文理阵列中。internalformat所需的组件必须是framebuffer格式中存在的组件的子集。例如，GL_RGBA帧缓冲区可用于为任何内部格式提供组件。但是，GL_RGB帧缓冲区只能用于为GL_RGB或GL_LUMINANCE基本内部格式纹理提供组件，而不能用于GL_ALPHA，GL_LUMINANCE_ALPHA或GL_RGBA纹理。像素排序使得较低的x和y屏幕坐标对应于较低的s和t纹理坐标。如果指定矩形内的任何像素位于与当前渲染上下文关联的帧缓冲区之外，则为这些像素获取的值未定义。
+	参数：target：指定活动纹理单元的目标纹理。必须是GL_TEXTURE_2D，GL_TEXTURE_CUBE_MAP_POSITIVE_X，GL_TEXTURE_CUBE_MAP_NEGATIVE_X，GL_TEXTURE_CUBE_MAP_POSITIVE_Y，
+				  GL_TEXTURE_CUBE_MAP_NEGATIVE_Y，GL_TEXTURE_CUBE_MAP_POSITIVE_Z或GL_TEXTURE_CUBE_MAP_NEGATIVE_Z。
+		  level：指定详细级别。 0级是基本图像级别。级别n是第n个mipmap缩小图像。
+		  internalformat：指定存储在地址数据中的压缩图像数据的格式。
+		  x，y：指定要复制的像素矩形区域左下角的窗口坐标。
+		  width：指定纹理图像的宽度。所有实现都支持至少64个纹素宽的2D纹理图像和至少16个纹素宽的立方体映射纹理图像。
+		  height：指定纹理图像的高度。所有实现都支持至少64个纹素高的2D纹理图像和至少16个纹素高的立方体映射纹理图像。
+		  border：指定边框的宽度。必须为0。
+	注意：GL实现可以选择以其选择的任何内部分辨率存储纹理数组。高度或宽度为0的图像表示NULL纹理。glCopyTexImage2D为使用glActiveTexture指定的当前纹理单元指定二维或立方体贴图纹理。
+24.void glCopyTexSubImage2D(GLenum target,GLint level,GLint xoffset,GLint yoffset,GLint x,GLint y,GLsizei width,GLsizei height);
+	功能：glCopyTexSubImage2D -  复制二维纹理子图像
+	描述：纹理将指定纹理图像的一部分映射到纹理处于活动状态的每个图元上。当前片段着色器或顶点着色器使用内置纹理查找功能时，纹理处于活动状态。
+		  glCopyTexSubImage2D用当前帧缓冲区中的像素（而不是客户端内存，如glTexSubImage2D的情况）替换二维纹理图像或立方体贴图纹理图像的矩形部分。
+		  屏幕对齐的像素矩形，左下角为（x，y），宽度为width，高度为height，定义了由level指定的mipmap级别的纹理数组。 处理矩形中的像素就像调用format设置为GL_RGBA的glReadPixels一样，但是在转换RGBA值之后，该过程就会停止。
+		  后续处理与glTexSubImage2D描述的处理相同，首先将R，G，B和A值截断到0 1范围，然后转换为纹理的内部格式以存储在纹素阵列中。
+		  纹理数组中的目标矩形可能不包括最初指定的纹理数组外的任何纹理像素。指定宽度或高度为零的子纹理不是错误，但这样的规范没有效果。
+		  如果指定矩形内的任何像素位于与当前渲染上下文关联的帧缓冲区之外，则为这些像素获取的值为未定义的。
+		  不会对指定纹理数组的internalformat，width或height参数或指定子区域外的纹素值进行更改。
+	参数：target：指定活动纹理单元的目标纹理。必须是GL_TEXTURE_2D，GL_TEXTURE_CUBE_MAP_POSITIVE_X，GL_TEXTURE_CUBE_MAP_NEGATIVE_X，GL_TEXTURE_CUBE_MAP_POSITIVE_Y，
+		          GL_TEXTURE_CUBE_MAP_NEGATIVE_Y，GL_TEXTURE_CUBE_MAP_POSITIVE_Z或GL_TEXTURE_CUBE_MAP_NEGATIVE_Z。
+		  level：指定详细级别。 0级是基本图像级别。级别n是第n个mipmap缩小图像。
+		  x，y：指定要复制的像素矩形区域左下角的窗口坐标。
+		  width：指定纹理图像的宽度。所有实现都支持至少64个纹素宽的2D纹理图像和至少16个纹素宽的立方体映射纹理图像。
+	      height：指定纹理图像的高度。所有实现都支持至少64个纹素高的2D纹理图像和至少16个纹素高的立方体映射纹理图像。
+		  xoffset：指定纹理数组中x方向的纹素偏移。
+		  yoffset：指定纹理数组内y方向的纹素偏移量。
+25.GLuint glCreateProgram（void）;
+	功能：glCreateProgram- 创建一个program（建议不要翻译成“程序”，以免引起与APP的混淆）对象
+	描述：glCreateProgram创建一个空program并返回一个可以被引用的非零值（program ID）。program对象是可以附加着色器对象的对象。 		 
+		  这提供了一种机制来指定将链接以创建program的着色器对象。它还提供了一种检查将用于创建program的着色器的兼容性的方法（例如，检查顶点着色器和片元着色器之间的兼容性）。 当不再需要作为program对象的一部分时，着色器对象就可以被分离了。通过调用glCompileShader成功编译着色器对象，并且通过调用glAttachShader成功地将着色器对象附加到program 对象，并且通过调用glLinkProgram成功的链接program 对象之后，可以在program 对象中创建一个或多个可执行文件。当调用glUseProgram时，这些可执行文件成为当前状态的一部分。 可以通过调用glDeleteProgram删除程序对象。当program 对象不再是任何上下文的当前呈现状态的一部分时，将删除与program 对象关联的内存。
+	注意：与纹理对象一样，只要上下文的服务器端共享相同的地址空间，程序对象的名称空间就可以在一组上下文中共享。
+		  如果名称空间跨上下文共享，则也会共享任何附加对象和与这些附加对象关联的数据。当从不同的执行线程访问对象时，应用程序负责跨API调用提供同步。
+26.GLuint glCreateShader（GLenum shaderType）;
+    功能：glCreateShader - 创建一个着色器对象
+	描述：glCreateShader创建一个空的着色器对象，并返回一个可以引用的非零值（shader ID）。着色器对象用于维护定义着色器的源代码字符串。shaderType指示要创建的着色器的类型。 
+	      支持两种类型的着色器。 GL_VERTEX_SHADER类型的着色器是一个用于在可编程顶点处理器上运行的着色器。 GL_FRAGMENT_SHADER类型的着色器是一个着色器，旨在在可编程片段处理器上运行。
+		  创建时，着色器对象的GL_SHADER_TYPE参数设置为GL_VERTEX_SHADER或GL_FRAGMENT_SHADER，具体取决于shaderType的值。
+	参数：shaderType：指定要创建的着色器的类型。 只能是GL_VERTEX_SHADER或GL_FRAGMENT_SHADER。
+	注意：与纹理对象一样，着色器对象的名称空间可以在一组上下文中共享，只要上下文的服务器端共享相同的地址空间即可。 
+		  如果名称空间跨上下文共享，则也会共享任何附加对象和与这些附加对象关联的数据。当从不同的执行线程访问对象时，应用程序需要负责跨API调用提供同步。
+27.void glCullFace（GLenum mode）;
+	功能：glCullFace - 指定是否可以剔除前面或后面的多边形
+	描述：glCullFace指定在启用多边形剔除时是否剔除前面或后面的多边形（由模式指定）。最初禁用多边形剔除。要启用和禁用多边形剔除，请使用参数GL_CULL_FACE调用glEnable和glDisable命令。
+		  glFrontFace指定顺时针和逆时针多边形中的哪一个是正面和背面的。
+	参数：mode：指定前面或后面的多边形是否适合剔除。接受符号常量GL_FRONT，GL_BACK和GL_FRONT_AND_BACK。初始值为GL_BACK。
+	注意：如果mode为GL_FRONT_AND_BACK，则不绘制多边形，但绘制其他图元（如点和线）。
+28.void glDeleteBuffers（GLsizei n，const GLuint * buffers）;
+	功能：glDeleteBuffers - 删除命名缓冲区对象
+	描述：glDeleteBuffers删除由数组缓冲区的元素命名的n个缓冲区对象。 删除缓冲区对象后，它就没有内容了，其名称可以被重用（例如glGenBuffers调用生成该名称（ID））。
+		  如果删除当前绑定的缓冲区对象，则绑定将恢复为0（缺少任何缓冲区对象，这将恢复为客户机内存使用情况）。glDeleteBuffers默认忽略0和与现有缓冲区对象不对应的名称。
+	参数：n：指定要删除的缓冲区对象名称的数量。
+		  buffers：指定要删除的缓冲区对象名称的数组。
+	注意：GL_INVALID_VALUE：n不能是负数
+29.void glDeleteFramebuffers（GLsizei n,const GLuint * framebuffers）;
+	功能：glDeleteFramebuffers - 删除命名的帧缓冲区对象
+	参数：n:指定要删除的帧缓冲区对象的数量。
+		  framebuffers:指定要删除的帧缓冲区对象数组。
+	描述：glDeleteFramebuffers删除由数组framebuffers的元素命名的n个framebuffer对象。 删除帧缓冲区对象后，它没有附件，其名称可以被复用（例如调用glGenFramebuffers生成）。  
+	      如果删除当前绑定的帧缓冲区对象，则绑定将恢复为0（窗口系统提供的帧缓冲区）。glDeleteFramebuffers默认忽略0和与现有帧缓冲对象不对应的名称。
+	注意：GL_INVALID_VALUE：n不能是负数
+30.void glDeleteProgram（GLuint program）;
+	功能：glDeleteProgram- 删除一个程序对象
+	参数：program:指定要删除的程序对象。
+	描述：glDeleteProgram释放内存并使与着色器指定的着色器对象关联的ID无效。这个命令有效地撤消了对glCreateProgram的调用的影响。
+		  如果程序对象正在被用作当前渲染状态的一部分，则它将被标记为删除，但在它不再是任何渲染上下文的当前状态的一部分之前不会被删除。 如果要删除的程序对象附加了着色器对象，那么这些着色器对象将自动分离但不会被删除，除非它们已被标记为先前调用glDeleteShader而被删除。 程序的值0为0将被忽视。要确定对象是否已标记为删除，请使用参数program和GL_DELETE_STATUS调用glGetProgramiv。
+	注意：GL_INVALID_VALUE：program不是OpenGL生成的值。
+31.void glDeleteRenderbuffers（GLsizei n,const GLuint * renderbuffers）;
+	功能：glDeleteRenderbuffers - 删除命名的renderbuffer对象
+	参数：n:指定要删除的renderbuffer对象的数量。
+		  renderbuffers:指定要删除的renderbuffer对象数组。
+	描述：glDeleteRenderbuffers删除由数组renderbuffers的元素命名的n个renderbuffer对象。 删除renderbuffer对象后，它没有内容，其名称可以被复用（例如glGenRenderbuffers）。
+         如果删除当前绑定的renderbuffer对象，则绑定将恢复为0（没有任何renderbuffer对象）。 此外，如果渲染缓冲区的图像附加到帧缓冲区对象，则在删除渲染缓冲区对象时必须特别小心。 在这种情况下，如果删除的renderbuffer对象附加到当前绑定的framebuffer对象，则会自动分离它。 但是，任何其他帧缓冲对象的附着都是应用程序的责任。glDeleteRenderbuffers默认忽略0和与现有renderbuffer对象不对应的名称。
+32.void glDeleteShader（GLuint shader）;
+	功能:glDeleteShader - 删除一个着色器对象
+	参数：shader: 指定要删除的着色器对象。
+	描述：glDeleteShader释放内存并使与着色器指定的着色器对象关联的ID无效。这个命令有效地撤消了对glCreateShader的调用的影响。
+		  如果要删除的着色器对象附加到程序对象，它将被标记为删除，但它不会被删除，直到它不再附加到任何程序对象，对于任何渲染上下文（即，它必须与 它被附加之前的任何地方都将被删除）。
+		  shader为0将被忽视。要确定对象是否已标记为删除，请使用参数shader和GL_DELETE_STATUS调用glGetShaderiv。
+33.void glDeleteTextures（GLsizei n，const GLuint *textures）;
+    功能：glDeleteTextures - 删除纹理
+	参数：n:指定要删除的纹理数量。
+          textures:指定要删除的纹理(ID)数组。
+	描述：glDeleteTextures删除由数组纹理元素命名的n个纹理。纹理被删除后，它就没有内容也没有维度了，并且其名称（ID）可以重复使用（例如，通过glGenTextures）。
+		  如果当前绑定的纹理被删除，绑定将恢复为0（默认纹理）。
+34.void glDepthFunc(GLenum func);
+	功能:glDepthFunc-主要用于深度缓冲区比较
+	参数：func:指定深度比较数据。接受符号常量GL_NEVER，GL_LESS，GL_EQUAL，GL_LEQUAL，GL_GREATER，GL_NOTEQUAL，GL_GEQUAL和GL_ALWAYS。初始值为GL_LESS。
+	描述：glDepthFunc用于将每个输入像素深度值与深度缓冲区中存在的深度值进行比较。仅在启用深度测试时才执行比较。 （参见GL_DEPTH_TEST的glEnable和glDisable。）
+	      func指定绘制像素的条件。比较功能如下：GL_NEVER:永远不通过。GL_LESS:如果传入深度值小于存储的深度值（离观看者更近），则通过。GL_EQUAL:如果传入深度值等于存储的深度值，则通过。
+		  GL_LEQUAL:如果传入深度值小于或等于存储的深度值，则通过。GL_GREATER:如果传入深度值大于存储的深度值，则通过。GL_NOTEQUAL:如果传入的深度值不等于存储的深度值，则通过。
+		  GL_GEQUAL:如果传入的深度值大于或等于存储的深度值，则通过。GL_ALWAYS:总是通过。
+		  func的初始值是GL_LESS。最初，深度测试被禁用。如果禁用深度测试或不存在深度缓冲，则就好像深度测试总是通过一样。
+    注意:即使存在深度缓冲区且深度掩模不为零，如果禁用深度测试，也不会更新深度缓冲区。
+35.void glDepthMask(GLboolean flag);
+	功能：glDepthMask - 启用或禁用写入深度缓冲区
+	参数：flag:指定是否可以写入启用深度缓冲区。如果flag为GL_FALSE，则禁用深度缓冲区写入。 否则，它可以启用。 初始状态为启用深度缓冲区写入。
+	描述：glDepthMask指定是否可以写入启用深度缓冲区。 如果flag为GL_FALSE，则禁用深度缓冲区写入。 否则，它可以启用。 初始状态为启用深度缓冲区写入。
+36.void glDepthRangef(GLclampf nearVal,GLclampf farVal);
+	功能：glDepthRangef - 指定从标准化设备坐标到窗口坐标的深度值的映射
+	参数：nearVal:指定近剪裁平面到窗口坐标的映射。初始值为0。
+		  farVal:指定远剪裁平面到窗口坐标的映射。初始值为1。
+	描述：在剪裁和除以w之后，深度坐标的范围从-1到1，对应于近剪裁平面和远剪裁平面。glDepthRangef指定此范围内的归一化深度坐标到窗口深度坐标的线性映射。
+	      无论实际的深度缓冲区实现如何，窗口坐标深度值都被视为从0到1（如颜色分量）。因此，glDepthRangef接受的值在被接受之前都被截断到该范围。
+         （0,1）的设置将近平面映射到0，将远平面映射到1.通过此映射，可以充分利用深度缓冲区范围。
+	注意: nearVal不必小于farVal。可以接受诸如nearVal = 1和farVal = 0的反向映射。
+37.void glDetachShader(GLuint program,GLuint shader);
+	功能：glDetachShader-从程序对象中分离着色器对象
+	参数：program:指定从中分离着色器对象的程序对象。
+		  shader:指定要分离的着色器对象。
+	描述：glDetachShader将shader指定的着色器对象与程序指定的程序对象分离。此命令可用于撤消命令glAttachShader的效果。
+          调用glDeleteShader将标记器标记为删除，并且它未附加其他程序对象，则在分离后被删除。
+	注意：GL_INVALID_VALUE：program或shader不是由OpenGL生成的值。
+		  GL_INVALID_OPERATION：program不是程序对象。
+          GL_INVALID_OPERATION：shader不是着色器对象。
+          GL_INVALID_OPERATION：未将shader附加到程序。
+38.void glEnable（GLenum cap）;
+	 void glDisable（GLenum cap）;
+	功能：glEnable-启用或禁用服务器端GL功能
+	参数：cap：表示GL功能的符号常量。
+	描述：glEnable和glDisable启用和禁用各种功能。使用glIsEnabled或glGet确定任何功能的当前设置。除GL_DITHER(抖动)外，每个功能的初始值为GL_FALSE。GL_DITHER的初始值为GL_TRUE。
+		  glEnable和glDisable都使用单个参数cap，它可以采用以下值之一：
+		  GL_BLEND:将计算的片段颜色值与颜色缓冲区中的值混合。请参阅glBlendFunc。
+		  GL_CULL_FACE:根据窗口的坐标来剔除多边形。请参阅glCullFace。
+          GL_DEPTH_TEST:进行深度比较并更新深度缓冲区。注意，即使存在深度缓冲区且深度掩码不为零，如果禁用深度测试，也将不会更新深度缓冲区。请参阅glDepthFunc和glDepthRangef。
+		  GL_DITHER:在将颜色组件或索引写入颜色缓冲区之前对其进行抖动。
+          GL_POLYGON_OFFSET_FILL:将偏移添加到由光栅化生成的多边形片段的深度值。 请参阅glPolygonOffset。（常用于处理Z-fighting）
+          GL_SAMPLE_ALPHA_TO_COVERAGE:如计算临时覆盖值，其中每个位由相应样本位置的alpha值确定。 然后，临时覆盖值与片段覆盖值进行AND运算。
+          GL_SAMPLE_COVERAGE:片段的覆盖范围与临时覆盖值进行AND运算。 如果GL_SAMPLE_COVERAGE_INVERT设置为GL_TRUE，则反转coverage值。 请参阅glSampleCoverage。
+          GL_SCISSOR_TEST:丢弃裁剪矩形之外的片段。 见glScissor。
+		  GL_STENCIL_TEST:进行模板测试并更新模板缓冲区。 请参阅glStencilFunc和glStencilOp。
+39.void glEnableVertexAttribArray（GLuint index）;
+     void glDisableVertexAttribArray（GLuint index）;
+	功能：lEnableVertexAttribArray - 启用或禁用通用顶点属性数组
+	参数：index:指定要启用或禁用的通用顶点属性的索引。
+	描述：glEnableVertexAttribArray启用index指定的通用顶点属性数组。 glDisableVertexAttribArray禁用index指定的通用顶点属性数组。 
+	      默认情况下，禁用所有客户端功能，包括所有通用顶点属性数组。 如果启用，将访问通用顶点属性数组中的值，并在调用顶点数组命令（如glDrawArrays或glDrawElements）时用于呈现。
+	注意：index应小于GL_MAX_VERTEX_ATTRIBS。
+40.void glDrawArrays（GLenum mode，GLint first,GLsizei count）;
+    功能：glDrawArrays--从数组数据中渲染图元
+	参数：mode:指定要渲染的图元类型。 接受符号常量GL_POINTS，GL_LINE_STRIP，GL_LINE_LOOP，GL_LINES，GL_TRIANGLE_STRIP，GL_TRIANGLE_FAN和GL_TRIANGLES。
+          first:指定已启用阵列中的起始索引。
+          count:指定要渲染的索引数。
+	描述：glDrawArrays指定了几个子例程调用的几何图元。你可以使用glVertexAttribPointer预先指定单独的顶点，法线和颜色数组，
+	      而不是调用GL过程来传递每个单独的顶点属性并使用它们通过单次调用glDrawArrays来构造图元序列。
+		  当调用glDrawArrays时，它使用每个启用数组中的计数顺序元素来构造几何图元序列，从元素first开始。mode指定构造什么类型的图元以及数组元素如何构造这些图元。
+          要启用和禁用通用顶点属性数组，请调用glEnableVertexAttribArray和glDisableVertexAttribArray。
+	注意:如果glUseProgram设置的当前程序对象无效，则渲染结果未定义。 但是，这种情况不会产生错误。
+41.void glDrawElements（GLenum mode，GLsizei count，GLenum type,const GLvoid * indices）;
+	功能：glDrawElements - 从数组数据中渲染图元
+	参数：mode:指定要渲染的图元类型。接受符号常量GL_POINTS，GL_LINE_STRIP，GL_LINE_LOOP，GL_LINES，GL_TRIANGLE_STRIP，GL_TRIANGLE_FAN和GL_TRIANGLES。
+          count:指定要渲染的元素数。
+          type:指定indices中值的类型。必须是GL_UNSIGNED_BYTE或GL_UNSIGNED_SHORT。
+          indices:指定指向存储索引的位置的指针。
+	描述：glDrawElements指定了几个子例程调用的几何图元。你可以使用glVertexAttribPointer预先指定单独的顶点，法线和颜色数组，
+	      而不是调用GL过程来传递每个单独的顶点属性并使用它们通过单次调用glDrawElements来构造图元序列。
+          当调用glDrawElements时，它使用来自启用数组的计数顺序元素，从索引开始构造几何图元序列。mode指定构造什么类型的图元以及数组元素如何构造这些图元。 如果启用了多个数组，则使用每个数组。要启用和禁用通用顶点属性数组，请调用glEnableVertexAttribArray和glDisableVertexAttribArray。
+42.void glFinish（void）;
+	功能：glFinish- 阻止直到所有GL命令执行完成
+	描述：在完成所有先前调用的GL命令的效果之前，glFinish不会返回。这些效果包括GL状态的所有更改，连接状态的所有更改以及帧缓冲区内容的所有更改。
+	注意:glFinish需要往返服务器。
+43.void glFlush（void）;
+    功能：glFlush-在有限时间内强制执行GL命令
+	描述：不同的GL实现在几个不同的位置缓冲命令，包括网络缓冲区和图形加速器本身。glFlush会清空所有这些缓冲区，促使所有已发出的命令在实际渲染引擎接受时尽快执行。
+	      尽管此执行可能无法在任何特定时间段内完成，但它确实在有限时间内完成。因为任何GL程序可能通过网络或缓冲命令的加速器执行，所以每当程序依赖于完成所有先前发出的命令时，
+		  所有程序都应该调用glFlush。例如，在等待依赖于生成的图像的用户输入之前调用glFlush。
+    注意:glFlush可以随时返回。 它不会等到所有先前发出的GL命令的执行完成。
+44.void glFramebufferRenderbuffer（GLenum target,GLenum attachment,GLenum renderbuffertarget,GLuint renderbuffer）;
+    功能：glFramebufferRenderbuffer-将渲染对象附加到帧对象
+	参数：target:指定帧缓冲目标。符号常量必须是GL_FRAMEBUFFER。
+          attachment:指定renderbuffer应附加到的附着点。必须是以下符号常量之一：GL_COLOR_ATTACHMENT0，GL_DEPTH_ATTACHMENT或GL_STENCIL_ATTACHMENT。
+		  renderbuffertarget:指定renderbuffer目标。符号常量必须为GL_RENDERBUFFER。
+          renderbuffer:指定要附加的renderbuffer对象。
+	描述：glFramebufferRenderbuffer将renderbuffer指定的renderbuffer附加为当前绑定的framebuffer对象的逻辑缓冲区之一。 
+	      attachment指定是否应将renderbuffer附加到framebuffer对象的颜色，深度或模板缓冲区。渲染缓冲区不可以附加到默认（名称为0）的帧缓冲对象。
+		  如果renderbuffer不为0，则指定附加点的GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE值设置为GL_RENDERBUFFER，GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME的值设置为renderbuffer。 GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL和GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE分别设置为默认值0和GL_TEXTURE_CUBE_MAP_POSITIVE_X。 先前绑定的帧缓冲区对象的附件逻辑缓冲区都将被破坏。如果renderbuffer为0，则分离附加到当前绑定的framebuffer对象的附件逻辑缓冲区的当前图像（如果有的话）。 GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE的值设置为GL_NONE。 GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME的值设置为0. GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL和GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE分别设置为默认值0和GL_TEXTURE_CUBE_MAP_POSITIVE_X。
+	注意:如果在将图像附加到当前绑定的帧缓冲区时删除了渲染缓冲区对象，则就好像glFramebufferRenderbuffer已使用渲染缓冲区为0调用此图像附加到当前绑定的帧缓冲区对象中的附着点。 
+	     换句话说，渲染缓冲区图像与当前绑定的帧缓冲区分离。请注意，渲染缓冲区图像不会与任何未绑定的帧缓冲区分离。从任何非绑定帧缓冲区中分离映像是应用程序的责任。
+45.void glFramebufferTexture2D（GLenum target,GLenum attachment,GLenum textarget,GLuint texture,GLint level）;
+	功能：glFramebufferTexture2D - 将纹理图像附加到帧缓冲对象
+	参数: target:指定帧缓冲目标。 符号常量必须是GL_FRAMEBUFFER。
+		  attachment:指定应附加纹理图像的附着点。必须是以下符号常量之一：GL_COLOR_ATTACHMENT0，GL_DEPTH_ATTACHMENT或GL_STENCIL_ATTACHMENT。
+		  textarget:指定纹理目标。 必须是以下符号常量之一：GL_TEXTURE_2D，GL_TEXTURE_CUBE_MAP_POSITIVE_X，GL_TEXTURE_CUBE_MAP_NEGATIVE_X，GL_TEXTURE_CUBE_MAP_POSITIVE_Y，
+					GL_TEXTURE_CUBE_MAP_NEGATIVE_Y，GL_TEXTURE_CUBE_MAP_POSITIVE_Z或GL_TEXTURE_CUBE_MAP_NEGATIVE_Z。
+		  texture:指定要附加图像的纹理对象。
+		  level:指定要附加的纹理图像的mipmap级别，该级别必须为0。
+	描述: glFramebufferTexture2D将texture和level指定的纹理图像附加为当前绑定的帧缓冲区对象的逻辑缓冲区之一。 
+	      attachment指定是否应将纹理图像附加到帧缓冲对象的颜色，深度或模板缓冲区。 纹理图像不可以附加到默认（名称为0）的帧缓冲对象。
+		  如果texture不为0，则指定附加点的GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE的值设置为GL_TEXTURE，GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME的值设置为texture，
+          GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL的值设置为level。 如果纹理是立方体贴图纹理，则GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE的值设置为textarget; 否则将其设置为默认值GL_TEXTURE_CUBE_MAP_POSITIVE_X。 先前绑定的帧缓冲区对象的附件逻辑缓冲区都将被破坏。
+		  如果texture为0，则分离附加到当前绑定的帧缓冲区对象的附件逻辑缓冲区的当前图像（如果有的话）。 GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE的值设置为GL_NONE。 GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME的值设置为0. GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL和GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE
+		  分别设置为默认值0和GL_TEXTURE_CUBE_MAP_POSITIVE_X。
+	注意: 当纹理对象当前被绑定并可能被当前顶点或片段着色器采样时，需要采取特殊预防措施以避免将纹理图像附加到当前绑定的帧缓冲区。
+          这样做可能导致在通过渲染操作写入像素和在当前绑定纹理中用作纹素时同时读取那些相同像素之间创建“反馈循环”。在这种情况下，帧缓冲区将被视为帧缓冲区完成，
+	      但在此状态下渲染的片段的值将是未定义的。纹理样本的值也可能是未定义的。如果在将图像附加到当前绑定的帧缓冲区时删除纹理对象，
+		  这就好比使用纹理0调用glFramebufferTexture2D作为此图像附加到当前绑定的帧缓冲区对象中的附着点。换句话说，纹理图像与当前绑定的帧缓冲区分离了。
+		  请注意，纹理图像不会与任何未绑定的帧缓冲区分离。从任何非绑定帧缓冲区中分离映像是应用程序的职责。
+	错误: GL_INVALID_ENUM ：target不是GL_FRAMEBUFFER。
+          GL_INVALID_ENUM ：texture不为0时textarget不是可接收的纹理target。
+		  GL_INVALID_ENUM ：attachment是不可接收的附着点。
+		  GL_INVALID_VALUE ：level不是0时，texture不是0。
+		  GL_INVALID_OPERATION ：如果绑定了默认的帧缓冲对象名称0。
+		  GL_INVALID_OPERATION ：如果texture既不是0也不是现有纹理对象的名称。
+          GL_INVALID_OPERATION ：如果texture是现有二维纹理对象的名称，但textarget不是GL_TEXTURE_2D，或者texture是现有立方体贴图纹理对象的名称，但textarget是GL_TEXTURE_2D。
+46.void glFrontFace（GLenum mode）;
+	功能：glFrontFace - 定义多边形的正面和背面
+	参数：mode: 指定多边形的正面方向（顶点序列是按顺时针还是逆时针）。 GL_CW和GL_CCW被接受。初始值为GL_CCW（逆时针）。
+	描述：在完全由不透明闭合曲面组成的场景中，背面多边形永远不可见。消除这些不可见的多边形具有明显加速图像渲染的好处。
+	      要启用和禁用背面多边形的消除功能，请使用参数GL_CULL_FACE的glEnable和glDisable。多边形到窗口坐标的投影被称为顺时针缠绕，如果一个假想的对象跟随从其第一个顶点，
+		  第二个顶点等到其最后一个顶点的路径，最后返回到它的第一个顶点，则移动到顺时针方向绕多边形内部。如果跟随相同路径的假想物体围绕多边形内部沿逆时针方向移动，
+		  则称多边形的绕组是逆时针方向。 glFrontFace指定窗口坐标中顺时针缠绕的多边形或窗口坐标中的逆时针缠绕是否面向前方。将GL_CCW传递给模式选择逆时针多边形作为正面; GL_CW选择顺时针多边形作为正面。默认情况下，逆时针多边形被视为面向前方。
+	错误: GL_INVALID_ENUM ：mode是不可接受的值
+47.void glGenBuffers（GLsizei n,GLuint * buffers）;
+    功能：glGenBuffers- 生成缓冲区对象名称
+	参数：n: 指定要生成的缓冲区对象名称的数量。
+		  buffers: 指定存储生成的缓冲区对象名称的数组。
+	描述: glGenBuffers在buffers中返回n个缓冲区对象名称。我们无法保证这些名称形成一组连续的整数; 但是能够保证的是在调用glGenBuffers之前不会立即使用这些返回的名称。
+          调用glGenBuffers返回的缓冲区对象名称不会被后续调用返回，除非它们首先使用glDeleteBuffers删除。
+          在通过调用glBindBuffer进行绑定之前，没有缓冲区对象与返回的缓冲区对象名称关联。
+	错误: GL_INVALID_VALUE ：n是个负数
+48.void glGenFramebuffers（GLsizei n,GLuint * framebuffers）;
+	功能：glGenFramebuffers- 生成framebuffer对象名称
+    参数：n：指定要生成的帧缓冲区对象名称的数量。
+          framebuffers：指定存储生成的帧缓冲区对象名称的数组。
+	描述：glGenFramebuffers在framebuffers中返回n个帧缓冲区对象名。无法保证连续整数的名称; 但是，保证在调用glGenFramebuffers之前没有任何返回的名称被使用。
+		  调用glGenFramebuffers返回的帧缓冲对象名称不会被后续调用返回，除非它们首先使用glDeleteFramebuffers删除。
+          没有帧缓冲对象与返回的帧缓冲区对象名称关联，直到它们首先通过调用glBindFramebuffer进行绑定。
+49.void glGenRenderbuffers（GLsizei n，GLuint * renderbuffers）;
+    功能：glGenRenderbuffers-生成渲染缓冲区对象名称
+	参数：n：指定要生成的渲染缓冲区对象名称的数量。
+		  renderbuffers：指定存储生成的渲染缓冲区对象名称的数组。
+	描述：glGenRenderbuffers在renderbuffers中返回n个渲染缓冲区对象名。无法保证这些名称形成一组连续的整数; 但是，保证在调用glGenRenderbuffers之前没有任何返回的名称被使用。
+		  调用glGenRenderbuffers返回的渲染缓冲区对象名称不会被后续调用返回，除非首先使用glDeleteRenderbuffers删除它们。
+		  在通过调用glBindRenderbuffer进行绑定之前，渲染缓冲区对象不会被关联渲染缓冲区对象名称。
+50.void glGenTextures( GLsizei n,GLuint * textures);
+    功能：glGenTextures- 生成纹理名称（ID）
+	参数：n：指定要生成的纹理ID的数量。
+		  textures：指定存储生成的纹理ID的数组。
+	描述：glGenTextures产生ｎ个纹理ID存储在textures数组中，这个方法并不保存返回的是一串连续的整数数组，但是能保证的是：这些ID在调用glGenTextures之前都没有正在被使用。
+		  生成的textures此时还是没有维度的，当他们第一次绑定纹理目标时才被指定维度（见glBindTexture）。
+		  通过调用glGenTextures返回的纹理ID不会被后续调用返回，除非首先使用glDeleteTextures删除它们。
+51.void glGenerateMipmap（GLenum target）;
+    功能：glGenerateMipmap- 为纹理对象生成一组完整的mipmap
+	参数：target：指定将生成mipmap的纹理对象绑定到的活动纹理单元的纹理目标。 必须是以下符号常量之一：GL_TEXTURE_2D或GL_TEXTURE_CUBE_MAP。
+	描述：glGenerateMipmap计算从零级数组派生的一组完整的mipmap数组。无论先前的内容如何，最多包括1x1维度纹理图像的数组级别都将替换为派生数组。零级纹理图像保持不变（原图）。
+		  派生的mipmap数组的内部格式都与零级纹理图像的内部格式相匹配。通过将零级纹理图像的宽度和高度减半来计算派生数组的尺寸，然后将每个阵列级别的尺寸减半，直到达到1x1尺寸纹理图像。
+		  通过重复滤波减少零电平阵列来计算导出阵列的内容。 虽然建议使用盒式过滤器，但不需要特殊的过滤算法。 可以调用glHint来表示对过滤速度或质量的偏好。
+	错误：GL_INVALID_ENUM ：如果target不是GL_TEXTURE_2D或GL_TEXTURE_CUBE_MAP；
+		  GL_INVALID_OPERATION：如果纹理绑定的是立方体贴图，但是6个面却不共用统一的宽高格式和类型；
+		  GL_INVALID_OPERATION ：如果原图的宽高不是2^N。（纹理贴图没这个要求，但是如要生成mipmap组则要注意这个要求）
+		  GL_INVALID_OPERATION ：如果零级数组以压缩内部格式存储。
+52.void glGetBooleanv(GLenum pname,GLboolean * params);
+	 void glGetFloatv(GLenum pname,GLfloat * params);
+	 void glGetIntegerv(GLenum pname,GLint * params);
+	功能：glGet - 返回所选参数的值
+	参数：pname：指定要返回的参数值。
+		  params：返回指定参数的值。
+	描述：这些命令返回GL中简单状态变量的值。 pname是一个符号常量，表示要返回的状态变量，params是一个指向指定类型数组的指针，用于放置返回的数据。
+		  如果params的类型与请求的状态变量值不同，则执行类型转换。如果调用glGetBooleanv，当且仅当它是0.0（或0）时，浮点（或整数）值才会转换为GL_FALSE。
+		  否则，它将转换为GL_TRUE。如果调用glGetIntegerv，则布尔值将返回GL_TRUE或GL_FALSE，并且大多数浮点值将四舍五入为最接近的整数值。
+		  但是，浮点颜色和法线将返回一个线性映射，该映射将1.0映射到最正可表示的整数值，将-1.0映射到最负可表示的整数值。
+		  如果调用glGetFloatv，则布尔值将作为GL_TRUE或GL_FALSE返回，并且整数值将转换为浮点值。
+		  pname接受以下符号常量：
+			GL_ACTIVE_TEXTURE：params返回一个表示活动多重纹理单元的值。初始值为GL_TEXTURE0。请参阅glActiveTexture。
+			GL_ALIASED_LINE_WIDTH_RANGE：params返回两个值，即别名行的最小和最大支持宽度。范围必须包括宽度1。
+			GL_ALIASED_POINT_SIZE_RANGE：params返回两个值，即别名点支持的最小和最大尺寸。范围必须包括1号。
+			GL_ALPHA_BITS：params返回一个值，即当前绑定的帧缓冲区的颜色缓冲区中的alpha位平面的数量。
+			GL_ARRAY_BUFFER_BINDING：params返回单个值，即当前绑定到目标GL_ARRAY_BUFFER的缓冲区对象的名称。如果没有缓冲区对象绑定到此目标，则返回0。初始值为0.请参阅glBindBuffer。
+			GL_BLEND：params返回一个布尔值，指示是否启用了混合。初始值为GL_FALSE。请参阅glBlendFunc。
+			GL_BLEND_COLOR：params返回四个值，红色，绿色，蓝色和alpha值，它们是混合颜色的组成部分。请参阅glBlendColor。
+			GL_BLEND_DST_ALPHA：params返回一个值，该符号常量标识alpha目标混合函数。初始值为GL_ZERO。请参阅glBlendFunc和glBlendFuncSeparate。
+			GL_BLEND_DST_RGB：params返回一个值，该符号常量标识RGB目标混合函数。初始值为GL_ZERO。请参阅glBlendFunc和glBlendFuncSeparate。
+			GL_BLEND_EQUATION_ALPHA：params返回一个值，一个符号常量，指示Alpha混合方程是GL_FUNC_ADD，GL_FUNC_SUBTRACT还是GL_FUNC_REVERSE_SUBTRACT。请参阅glBlendEquationSeparate。
+			GL_BLEND_EQUATION_RGB：params返回一个值，一个符号常量，指示RGB混合方程是GL_FUNC_ADD，GL_FUNC_SUBTRACT还是GL_FUNC_REVERSE_SUBTRACT。请参阅glBlendEquationSeparate。
+			GL_BLEND_SRC_ALPHA：params返回一个值，这是一个标识alpha源混合函数的符号常量。初始值为GL_ONE。请参阅glBlendFunc和glBlendFuncSeparate。
+			GL_BLEND_SRC_RGB：params返回一个值，这个符号常量标识RGB源混合函数。初始值为GL_ONE。请参阅glBlendFunc和glBlendFuncSeparate。
+			GL_BLUE_BITS：params返回一个值，即当前绑定的帧缓冲区的颜色缓冲区中的蓝色位平面的数量。
+			GL_COLOR_CLEAR_VALUE：params返回四个值：用于清除颜色缓冲区的红色，绿色，蓝色和alpha值。如果请求，整数值从内部浮点表示线性映射，
+				使得1.0返回最正可表示的整数值，-1.0返回最负可表示的整数值。初始值为（0,0,0,0）。请参阅glClearColor。
+			GL_COLOR_WRITEMASK：params返回四个布尔值：红色，绿色，蓝色和alpha写入启用颜色缓冲区。初始值为（GL_TRUE，GL_TRUE，GL_TRUE，GL_TRUE）。请参阅glColorMask。
+			GL_COMPRESSED_TEXTURE_FORMATS：params返回长度为GL_NUM_COMPRESSED_TEXTURE_FORMATS的符号常量列表，指示哪些压缩纹理格式可用。请参阅glCompressedTexImage2D。
+			GL_CULL_FACE：params返回一个布尔值，指示是否启用了多边形剔除。初始值为GL_FALSE。请参阅glCullFace。
+			GL_CULL_FACE_MODE：params返回一个值，一个符号常量，指示要剔除哪些多边形面。初始值为GL_BACK。请参阅glCullFace。
+			GL_CURRENT_PROGRAM：params返回一个值，即当前活动的程序对象的名称，如果没有程序对象处于活动状态，则返回0。请参阅glUseProgram。
+			GL_DEPTH_BITS：params返回一个值，即当前绑定的帧缓冲区的深度缓冲区中的位平面数。
+			GL_DEPTH_CLEAR_VALUE：params返回一个值，该值用于清除深度缓冲区。如果请求，整数值从内部浮点表示线性映射，使得1.0返回最正可表示的整数值，-1.0返回最负可表示的整数值。
+				初始值为1.请参阅glDepthRangef。
+			GL_DEPTH_FUNC：params返回一个值，表示深度比较函数的符号常量。初始值为GL_LESS。请参阅glDepthFunc。
+			GL_DEPTH_RANGE：params返回两个值：深度缓冲区的近和远映射限制。如果请求，整数值从内部浮点表示线性映射，使得1.0返回最正可表示的整数值，-1.0返回最负可表示的整数值。
+				初始值为（0,1）。请参阅glDepthRangef。
+			GL_DEPTH_TEST：params返回一个布尔值，指示是否启用了片段的深度测试。初始值为GL_FALSE。请参阅glDepthFunc和glDepthRangef。
+			GL_DEPTH_WRITEMASK：params返回一个布尔值，指示深度缓冲区是否已启用写入。初始值为GL_TRUE。请参阅glDepthMask。
+			GL_DITHER：params返回一个布尔值，指示是否启用了片段颜色和索引的抖动。初始值为GL_TRUE。
+			GL_ELEMENT_ARRAY_BUFFER_BINDING：params返回单个值，即当前绑定到目标GL_ELEMENT_ARRAY_BUFFER的缓冲区对象的名称。如果没有缓冲区对象绑定到此目标，则返回0。
+				初始值为0.请参阅glBindBuffer。
+			GL_FRAMEBUFFER_BINDING：params返回单个值，即当前绑定的帧缓冲区的名称。初始值为0，表示默认的帧缓冲区。请参阅glBindFramebuffer。
+			GL_FRONT_FACE：params返回一个值，一个符号常数，表示顺时针或逆时针多边形绕组是否被视为正面。初始值为GL_CCW。请参阅glFrontFace。
+			GL_GENERATE_MIPMAP_HINT：params返回一个值，一个符号常量，指示mipmap生成过滤提示的模式。初始值为GL_DONT_CARE。见glHint。
+			GL_GREEN_BITS：params返回一个值，即当前绑定的帧缓冲区的颜色缓冲区中的绿色位平面的数量。
+			GL_IMPLEMENTATION_COLOR_READ_FORMAT：params返回一个值，即实现选择的格式，其中可以从当前绑定的帧缓冲区的颜色缓冲区中读取像素，并结合GL_IMPLEMENTATION_COLOR_READ_TYPE。
+				除了这种依赖于实现的格式/类型对之外，每个实现始终允许格式GL_RGBA和类型GL_UNSIGNED_BYTE，而不管当前绑定的渲染表面如何。请参阅glReadPixels。
+			GL_IMPLEMENTATION_COLOR_READ_TYPE：params返回一个值，该实现选择的类型可以从当前绑定的帧缓冲区的颜色缓冲区中读取像素，并结合GL_IMPLEMENTATION_COLOR_READ_FORMAT。
+				除了这种依赖于实现的格式/类型对之外，每个实现始终允许格式GL_RGBA和类型GL_UNSIGNED_BYTE，而不管当前绑定的渲染表面如何。请参阅glReadPixels。
+			GL_LINE_WIDTH：params返回一个值，即glLineWidth指定的行宽。初始值为1。
+			GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS：params返回一个值，最大支持的纹理图像单元数，可用于从顶点着色器和片段处理器组合访问纹理贴图。
+				如果顶点着色器和片段处理阶段都访问相同的纹理图像单元，则计数为使用两个纹理图像单元来抵抗此限制。该值必须至少为8.请参阅glActiveTexture。
+			GL_MAX_CUBE_MAP_TEXTURE_SIZE：params返回一个值。该值粗略估计了GL可以处理的最大立方体贴图纹理。该值必须至少为16.请参阅glTexImage2D。
+			GL_MAX_FRAGMENT_UNIFORM_VECTORS：params返回一个值，可以保存在片段着色器的统一变量存储中的四元素浮点数，整数或布尔矢量的最大数量。该值必须至少为16.请参阅glUniform。
+			GL_MAX_RENDERBUFFER_SIZE：params返回一个值。该值表示GL可以处理的最大渲染缓冲区宽度和高度。该值必须至少为1.请参阅glRenderbufferStorage。
+			GL_MAX_TEXTURE_IMAGE_UNITS：params返回一个值，这是支持的最大纹理图像单元，可用于从片段着色器访问纹理贴图。该值必须至少为8.请参阅glActiveTexture。
+			GL_MAX_TEXTURE_SIZE：params返回一个值。该值粗略估计了GL可以处理的最大纹理。该值必须至少为64.请参阅glTexImage2D。
+			GL_MAX_VARYING_VECTORS：params返回一个值，最大数量的四元素浮点向量可用于插入顶点和片段着色器使用的变量变量。声明为矩阵或数组的变量变量将使用多个插值器。该值必须至少为8。
+			GL_MAX_VERTEX_ATTRIBS：params返回一个值，即顶点着色器可访问的4分量通用顶点属性的最大数量。该值必须至少为8.请参阅glVertexAttrib。
+			GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS：params返回一个值，最大支持的纹理图像单元，可用于从顶点着色器访问纹理贴图。值可能为0.请参阅glActiveTexture。
+			GL_MAX_VERTEX_UNIFORM_VECTORS：params返回一个值，可以保存在顶点着色器的统一变量存储中的四元素浮点数，整数或布尔矢量的最大数量。该值必须至少为128.请参阅glUniform。
+			GL_MAX_VIEWPORT_DIMS：params返回两个值：视口的最大支持宽度和高度。这些必须至少与要渲染的显示器的可见尺寸一样大。请参阅glViewport。
+			GL_NUM_COMPRESSED_TEXTURE_FORMATS：params返回一个整数值，表示可用的压缩纹理格式的数量。最小值为0.请参阅glCompressedTexImage2D。
+			GL_NUM_SHADER_BINARY_FORMATS：params返回一个整数值，表示可用着色器二进制格式的数量。最小值为0.请参阅glShaderBinary。
+			GL_PACK_ALIGNMENT：params返回一个值，用于将像素数据写入内存的字节对齐。初始值为4.请参阅glReadPixels。
+			GL_POLYGON_OFFSET_FACTOR：params返回一个值，缩放因子用于确定添加到多边形光栅化时生成的每个片段的深度值的变量偏移量。初始值为0.请参阅glPolygonOffset。
+			GL_POLYGON_OFFSET_FILL：params返回一个布尔值，指示在填充模式下是否为多边形启用了多边形偏移。初始值为GL_FALSE。请参阅glPolygonOffset。
+			GL_POLYGON_OFFSET_UNITS：params返回一个值。此值乘以特定于实现的值，然后添加到栅格化多边形时生成的每个片段的深度值。初始值为0.请参阅glPolygonOffset。
+			GL_RED_BITS：params返回一个值，即当前绑定的帧缓冲区的颜色缓冲区中的红色位平面的数量。
+			GL_RENDERBUFFER_BINDING：params返回单个值，即当前绑定的renderbuffer的名称。初始值为0，表示没有绑定渲染缓冲区。请参阅glBindRenderbuffer。
+			GL_SAMPLE_ALPHA_TO_COVERAGE：params返回一个布尔值，指示片段覆盖值是否应与基于片段的alpha值的临时覆盖值进行AND运算。初始值为GL_FALSE。请参阅glSampleCoverage。
+			GL_SAMPLE_BUFFERS：params返回一个整数值，表示与当前绑定的帧缓冲区关联的样本缓冲区的数量。请参阅glSampleCoverage。
+			GL_SAMPLE_COVERAGE：params返回一个布尔值，指示片段覆盖值是否应与基于当前样本覆盖值的临时覆盖值进行AND运算。初始值为GL_FALSE。请参阅glSampleCoverage。
+			GL_SAMPLE_COVERAGE_INVERT：params返回一个布尔值，指示是否应该反转临时覆盖值。请参阅glSampleCoverage。
+			GL_SAMPLE_COVERAGE_VALUE：params返回单个正浮点值，表示当前样本覆盖值。请参阅glSampleCoverage。
+			GL_SAMPLES：params返回一个整数值，表示当前绑定的帧缓冲区的coverage掩码大小。请参阅glSampleCoverage。
+			GL_SCISSOR_BOX：params返回四个值：裁剪框的x和y窗口坐标，后跟宽度和高度。最初，x和y窗口坐标均为0，宽度和高度设置为窗口大小。见glScissor。
+			GL_SCISSOR_TEST：params返回一个布尔值，指示是否启用裁剪。初始值为GL_FALSE。见glScissor。
+			GL_SHADER_BINARY_FORMATS：params返回长度为GL_NUM_SHADER_BINARY_FORMATS的符号常量列表，指示哪些着色器二进制格式可用。请参阅glShaderBinary。
+			GL_SHADER_COMPILER：params返回一个布尔值，指示是否支持着色器编译器。 	 
+				GL_FALSE表示对glShaderSource，glCompileShader或glReleaseShaderCompiler的任何调用都将导致生成GL_INVALID_OPERATION错误。
+			GL_STENCIL_BACK_FAIL：params返回一个值，一个符号常量，指示当模板测试失败时对后向多边形采取的操作。初始值为GL_KEEP。请参阅glStencilOpSeparate。
+			GL_STENCIL_BACK_FUNC：params返回一个值，一个符号常量，指示用于后向多边形的函数，以将模板参考值与模板缓冲区值进行比较。初始值为GL_ALWAYS。请参阅glStencilFuncSeparate。
+			GL_STENCIL_BACK_PASS_DEPTH_FAIL：params返回一个值，一个符号常量，表示当模板测试通过时对背面多边形采取的操作，但深度测试失败。初始值为GL_KEEP。请参阅glStencilOpSeparate。
+			GL_STENCIL_BACK_PASS_DEPTH_PASS：params返回一个值，一个符号常量，表示当模板测试通过且通过深度测试时，对于背面多边形采取的操作。初始值为GL_KEEP。请参阅glStencilOpSeparate。
+			GL_STENCIL_BACK_REF：params返回一个值，该值与背面多边形的模板缓冲区内容进行比较。初始值为0.请参阅glStencilFuncSeparate。
+			GL_STENCIL_BACK_VALUE_MASK：params返回一个值，用于背面多边形的掩码在比较之前屏蔽模板参考值和模板缓冲区值。初始值全是1。请参阅glStencilFuncSeparate。
+			GL_STENCIL_BACK_WRITEMASK：params返回一个值，该值控制用于背面多边形的模板位平面的写入。初始值全是1。请参阅glStencilMask。
+			GL_STENCIL_BITS：params返回一个值，即当前绑定的帧缓冲区的模板缓冲区中的位平面数。
+			GL_STENCIL_CLEAR_VALUE：params返回一个值，即模板位平面被清除的索引。初始值为0.请参阅glClearStencil。
+			GL_STENCIL_FAIL：params返回一个值，一个符号常量，表示当前面的多边形和非多边形的模板测试失败时采取的操作。初始值为GL_KEEP。请参阅glStencilOp和glStencilOpSeparate。
+			GL_STENCIL_FUNC：params返回一个值，一个符号常量，指示用于将模板参考值与前面多边形和非多边形的模板缓冲区值进行比较的函数。
+				初始值为GL_ALWAYS。请参阅glStencilFunc和glStencilFuncSeparate。
+			GL_STENCIL_PASS_DEPTH_FAIL：params返回一个值，一个符号常量，表示模板测试通过时采取的操作，但前向多边形和非多边形的深度测试失败。
+				初始值为GL_KEEP。请参阅glStencilOp和glStencilOpSeparate。
+			GL_STENCIL_PASS_DEPTH_PASS：params返回一个值，一个符号常量，表示模板测试通过时采取的操作，深度测试通过前面的多边形和非多边形。
+				初始值为GL_KEEP。请参阅glStencilOp和glStencilOpSeparate。
+			GL_STENCIL_REF：params返回一个值，该值与前面的多边形和非多边形的模板缓冲区的内容进行比较。初始值为0.请参阅glStencilFunc和glStencilFuncSeparate。
+			GL_STENCIL_TEST：params返回一个布尔值，指示是否启用了片段的模板测试。初始值为GL_FALSE。请参阅glStencilFunc和glStencilOp。
+			GL_STENCIL_VALUE_MASK：params返回一个值，该掩码用于在比较前面的多边形和非多边形之前屏蔽模板参考值和模板缓冲区值。初始值全是1。请参阅glStencilFunc和glStencilFuncSeparate。
+			GL_STENCIL_WRITEMASK：params返回一个值，该控件用于控制前面的多边形和非多边形的模板位平面的写入。初始值全是1。请参阅glStencilMask和glStencilMaskSeparate。
+			GL_SUBPIXEL_BITS：params返回一个值，即用于在窗口坐标中定位栅格化几何的子像素分辨率的位数估计值。该值必须至少为4。
+			GL_TEXTURE_BINDING_2D：params返回单个值，即当前绑定到活动多纹理单元的目标GL_TEXTURE_2D的纹理的名称。初始值为0.请参阅glBindTexture。
+			GL_TEXTURE_BINDING_CUBE_MAP：params返回单个值，当前绑定到活动多纹理单元的目标GL_TEXTURE_CUBE_MAP的纹理的名称。初始值为0.请参阅glBindTexture。
+			GL_UNPACK_ALIGNMENT：params返回一个值，用于从内存中读取像素数据的字节对齐。初始值为4.请参阅glPixelStorei。
+			GL_VIEWPORT：params返回四个值：视口的x和y窗口坐标，后跟其宽度和高度。最初，x和y窗口坐标都设置为0，宽度和高度设置为GL将进行渲染的窗口的宽度和高度。请参阅glViewport。
+			使用glIsEnabled也可以更轻松地查询许多布尔参数。
+53.void glGetActiveAttrib(GLuint program,GLuint index,GLsizei bufSize,GLsizei *length,GLint *size,GLenum *type,GLchar *name);
+	功能：glGetActiveAttrib - 激活纹理单元
+	参数：program：指定要查询的程序对象。
+		  index：指定要查询的属性变量的索引。
+		  bufSize：指定允许OpenGL在由name指示的字符缓冲区中写入的最大字符数。
+		  length：如果传递NULL以外的值，则返回由name指示的字符串中的OpenGL实际写入的字符数（不包括空终止符）。
+		  size：返回属性变量的尺寸大小。
+		  type：返回属性变量的数据类型。
+		  name：返回包含属性变量名称的以null结尾的字符串。
+	描述：glGetActiveAttrib返回有关程序指定的program对象中的活动属性变量的信息。可以通过使用值GL_ACTIVE_ATTRIBUTES调用glGetProgramiv来获取活动属性的数量。
+		  索引的值为0将选择第一个活动属性变量。索引的允许值范围从0到活动属性变量数减1。属性变量具有任意名称，并通过编号的通用顶点属性获取其值。
+		  如果在链接操作期间确定属性变量可以在程序执行期间被访问，则该属性变量被认为是活动的。因此，程序之前应该是调用glLinkProgram的目标，但它没有必要成功链接。
+		  可以通过调用值为GL_ACTIVE_ATTRIBUTE_MAX_LENGTH的glGetProgramiv来获取在程序中存储最长属性变量名所需的字符缓冲区的大小。此值应用于分配足够大小的缓冲区来存储返回的属性名称。
+		  该字符缓冲区的大小在bufSize中传递，并且在该名称中传递指向该字符缓冲区的指针。glGetActiveAttrib返回index指示的属性变量的名称，将其存储在name指定的字符缓冲区中。
+		  返回的字符串将以null结尾。写入此缓冲区的实际字符数以长度形式返回，并且此计数不包括空终止字符。如果不需要返回字符串的长度，则可以在length参数中传递NULL值。
+		  type参数将返回指向属性变量数据类型的指针。可以返回符号常量GL_FLOAT，GL_FLOAT_VEC2，GL_FLOAT_VEC3，GL_FLOAT_VEC4，GL_FLOAT_MAT2，GL_FLOAT_MAT3或GL_FLOAT_MAT4。 size参数将返回属性的大小，以type中返回的类型为单位。此函数将返回尽可能多的有关指定活动属性变量的信息。如果没有可用信息，则长度为0，name为空字符串。如果在失败的链接操作后调用此函数，则可能发生这种情况。如果发生错误，则返回值length，size，type和name将不会被修改。
+	错误：GL_INVALID_VALUE:program不是OpenGL生成的值
+		  GL_INVALID_OPERATION:program不是程序对象
+		  GL_INVALID_VALUE:index>=程序中活动属性变量的数量
+		  GL_INVALID_VALUE:bufSize<0
+54.void glGetActiveUniform（GLuint program,GLuint index,GLsizei bufSize,GLsizei *length,GLint *size,GLenum *type,GLchar *name）;
+	功能：glGetActiveUniform - 返回有关活动统一变量的信息
+	参数：program：指定要查询的程序对象。
+		  index：指定要查询的统一变量的索引。
+		  bufSize：指定允许OpenGL在由name指示的字符缓冲区中写入的最大字符数。
+		  length：如果传递NULL以外的值，则返回由name指示的字符串中的OpenGL实际写入的字符数（不包括空终止符）。
+		  size：返回统一变量的大小。
+		  type：返回统一变量的数据类型。
+		  name：返回包含统一变量名称的以null结尾的字符串。
+	描述：glGetActiveUniform返回有关程序指定的程序对象中的活动统一变量的信息。可以通过使用值GL_ACTIVE_UNIFORMS调用glGetProgramiv来获得活动的统一变量的数量。
+		  索引的值为0的是选择第一个活动的统一变量。索引的允许值范围从0到活动统一变量的数量减1。着色器可以使用内置的统一变量，用户定义的统一变量或两者。
+		  内置的统一变量具有前缀“gl_”并且引用现有的OpenGL状态或从这种状态导出的值（例如，gl_DepthRange）。用户定义的统一变量具有任意名称，并通过调用glUniform从应用程序获取它们的值。
+		  如果在链接操作期间确定可以在程序执行期间访问它，则统一变量（内置或用户定义）被认为是活动的。因此，程序之前应该是调用glLinkProgram的目标，但它没有必要成功链接。
+		  在程序中存储最长的统一变量名所需的字符缓冲区的大小可以通过调用值为GL_ACTIVE_UNIFORM_MAX_LENGTH的glGetProgramiv来获得。
+		  此值应用于分配足够大小的缓冲区来存储返回的统一变量名称。该字符缓冲区的大小在bufSize中传递，并且在该名称中传递指向该字符缓冲区的指针。
+		  glGetActiveUniform返回由index指示的统一变量的名称，将其存储在name指定的字符缓冲区中。返回的字符串将以null结尾。写入此缓冲区的实际字符数以长度形式返回，
+		  并且此计数不包括空终止字符。如果不需要返回字符串的长度，则可以在length参数中传递NULL值。type参数将返回指向统一变量数据类型的指针。可以返回符号常数GL_FLOAT，
+		  GL_FLOAT_VEC2，GL_FLOAT_VEC3，GL_FLOAT_VEC4，GL_INT_GLEC_VEC2，GL_INT_VEC3，GL_INT_VEC4，GL_BOOL，GL_BOOL_VEC2，GL_BOOL_VEC3，GL_BOOL_VEC4，
+		  GL_FLOAT_MAT2，GL_FLOAT_MAT3，GL_FLOAT_MAT4，GL_SAMPLER_2D或GL_SAMPLER_CUBE。如果数组的一个或多个元素处于活动状态，则在name中返回数组的名称，类型以type返回，
+		  并且size参数返回使用的最高数组元素索引加上1，具体由编译器确定和/或链接器。对于统一阵列，仅报告一个活动的统一变量。
+		  声明为结构或结构数组的统一变量不会由此函数直接返回。相反，这些统一变量中的每一个都将被简化为包含“.”和“[]”运算符的基本组成部分，
+		  使得每个名称作为glGetUniformLocation的参数有效。统一变量的大小将以size返回。除数组之外的统一变量将具有1的维度大小。
+		  结构和结构数组将如前所述减少，使得返回的每个名称将是先前列表中的数据类型。活动统一变量列表可以包括内置的统一变量（以前缀“gl_”开头）以及用户定义的统一变量名称。
+		  此函数将返回尽可能多的有关指定的活动统一变量的信息。如果没有可用信息，则length为0，name为空字符串（如果在失败的链接操作后调用此函数，则可能发生这种情况）。
+		  如果发生错误，则返回值length，size，type和name将不会被修改。
+55.void glGetAttachedShaders(GLuint program,GLsizei maxCount,GLsizei *count,GLuint *shaders);
+    功能：glGetAttachedShaders - 返回附加到程序对象的着色器对象的句柄
+	参数：program：指定要查询的程序对象。
+		  maxCount：指定用于存储返回的对象名称的数组的大小。
+		  count：返回着色器中实际返回的名称数。
+		  shaders：指定用于返回附加着色器对象名称的数组。
+	描述：glGetAttachedShaders返回附加到程序的着色器对象的名称。附加到程序的着色器对象的名称将在着色器中返回。写入着色器的着色器名称的实际数量将按count返回。
+		  如果没有将着色器对象附加到程序，则count设置为0.可以在着色器中返回的着色器名称的最大数量由maxCount指定。
+	      如果不需要实际返回的名称数（例如，如果刚刚通过调用glGetProgramiv获得它），则可以传递NULL值以进行计数。如果没有着色器对象附加到程序，则count将返回值0。
+		  通过使用值GL_ATTACHED_SHADERS调用glGetProgramiv可以获得附加着色器的实际数量。
+	错误：GL_INVALID_VALUE：program不是OpenGL生成的值。
+	      GL_INVALID_OPERATION：program不是程序对象。
+		  GL_INVALID_VALUE：maxCount小于0。
+56.GLint glGetAttribLocation（GLuint program,const GLchar *name）;
+	功能：glGetAttribLocation - 返回属性变量的位置
+	参数：program:指定要查询的程序对象。
+		  name:要查询其位置的属性变量的名称。
+	描述：glGetAttribLocation查询由program指定的先前链接的程序对象，用于name指定的属性变量，并返回绑定到该属性变量的通用顶点属性的索引。 	
+	      如果name是矩阵属性变量，则返回矩阵的第一列的索引。 如果指定的属性变量不是指定程序对象中的活动属性，或者名称以保留前缀“gl_”开头，则返回-1。
+		  可以通过调用glBindAttribLocation随时指定属性变量名和通用属性索引之间的关联。 在调用glLinkProgram之前，属性绑定不会生效。 成功链接程序对象后，属性变量的索引值将保持固定，直到发生下一个链接命令。 如果链接成功，则只能在链接后查询属性值。 glGetAttribLocation返回上次为指定程序对象调用glLinkProgram时实际生效的绑定。 glGetAttribLocation不返回自上次链接操作以来指定的属性绑定。
+	错误：GL_INVALID_OPERATION ：program不是OpenGL生成的值。
+		  GL_INVALID_OPERATION ：program不是程序对象。
+		  GL_INVALID_OPERATION ：program没有成功链接。
+57.void glGetBufferParameteriv(GLenum target,GLenum value,GLint * data);
+	功能：glGetBufferParameteriv - 返回缓冲区对象的参数
+	参数：target：指定目标缓冲区对象。符号常量必须为GL_ARRAY_BUFFER或GL_ELEMENT_ARRAY_BUFFER。
+		  value：指定缓冲区对象参数的符号名称。可接受的值为GL_BUFFER_SIZE或GL_BUFFER_USAGE。
+		  data：返回请求的参数。
+	描述：glGetBufferParameteriv在数据中返回target指定的缓冲区对象的选定参数。value命名一个特定的缓冲区对象参数，如下所示：
+			GL_BUFFER_SIZE：data返回缓冲区对象的大小，以字节为单位。初始值为0。
+		    GL_BUFFER_USAGE：data返回缓冲区对象的使用模式。初始值为GL_STATIC_DRAW。
+	注意：如果生成错误，则不会更改数据内容。
+	错误：GL_INVALID_ENUM：target或value不是可接受的值。
+		  GL_INVALID_OPERATION：保留的缓冲区对象名称0绑定到target。
+58.GLenum glGetError(void);
+	功能：glGetError- 返回错误信息
+	描述：glGetError返回错误标志的值。每个可检测的错误都分配有数字代码和符号名称。发生错误时，错误标志将设置为相应的错误代码值。
+		  在调用glGetError（返回错误代码）之前，不会记录其他错误，并将标志重置为GL_NO_ERROR。如果对glGetError的调用返回GL_NO_ERROR，则自上次调用glGetError或自GL初始化以来，
+		  没有可检测到的错误。为了允许分布式实现，可能存在多个错误标志。如果任何单个错误标志记录了错误，则返回该标志的值，并在调用glGetError时将该标志重置为GL_NO_ERROR。
+		  如果多个标志记录了错误，glGetError将返回并清除任意错误标志值。因此，如果要重置所有错误标志，则应始终在循环中调用glGetError，直到它返回GL_NO_ERROR。
+		  初始情况下，所有错误标志都设置为GL_NO_ERROR。
+		  目前定义了以下错误：
+			GL_NO_ERROR (0)：没有记录错误。 此符号常量的值保证为0。
+		    GL_INVALID_ENUM (1280)：为枚举参数指定了不可接受的值。 违规命令被忽略，除了设置错误标志之外没有其他副作用。
+		    GL_INVALID_VALUE(1281)：数字参数超出范围。 违规命令被忽略，除了设置错误标志之外没有其他副作用。
+			GL_INVALID_OPERATION(1282)：当前状态下不允许指定的操作。 违规命令被忽略，除了设置错误标志之外没有其他副作用。
+			GL_INVALID_FRAMEBUFFER_OPERATION(1286)：该命令试图渲染到帧缓冲区或从帧缓冲区读取，而当前绑定的帧缓冲区不是帧缓冲区完成状态
+			    （即glCheckFramebufferStatus的返回值不是GL_FRAMEBUFFER_COMPLETE）。 违规命令被忽略，除了设置错误标志之外没有其他副作用。
+			GL_OUT_OF_MEMORY(1285)：没有足够的内存来执行命令。   
+			    在记录此错误之后，GL的状态是未定义的，除了错误标志的状态。设置错误标志时，仅当GL_OUT_OF_MEMORY发生时，GL操作的结果才是未定义的。 
+			    在所有其他情况下，生成错误的命令将被忽略，并且不会影响GL状态或帧缓冲区内容。 如果generate命令返回一个值，则返回0。
+59.void glGetFramebufferAttachmentParameteriv(GLenum target,GLenum attachment,GLenum pname,GLint * params);
+	功能：glGetFramebufferAttachmentParameteriv - 返回帧缓冲对象的附件参数
+	参数：target：指定目标帧缓冲区对象。符号常量必须是GL_FRAMEBUFFER。
+		  attachment：指定帧缓冲区对象附加点的符号名称。可接受的值为GL_COLOR_ATTACHMENT0，GL_DEPTH_ATTACHMENT和GL_STENCIL_ATTACHMENT。
+		  pname：指定帧缓冲区对象附件参数的符号名称。可接受的值为GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE，GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME，
+		         GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL和GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE。
+		  params：返回请求的参数。
+	描述：glGetFramebufferAttachmentParameteriv以params形式返回当前绑定的framebuffer对象的附着点的选定附件参数。
+		  pname命名一个特定的framebuffer对象附件参数，如下所示：
+			GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE：params返回包含附加图像的对象类型，GL_RENDERBUFFER，GL_TEXTURE，或者如果没有附加图像，则返回GL_NONE。初始值为GL_NONE。
+			GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME：如果GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE的值为GL_RENDERBUFFER，则params返回包含附加图像的renderbuffer对象的名称。
+				如果GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE的值为GL_TEXTURE，则params返回包含附加图像的纹理对象的名称。初始值为零。
+			GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL：如果GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE的值为GL_TEXTURE，则params返回包含附加图像的纹理对象的mipmap级别。初始值为零。
+			GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE：如果GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE的值为GL_TEXTURE且GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME是立方体贴图纹理的名称，
+				则params返回包含附加图像的立方体贴图纹理对象的立方体贴图面。如果附加图像来自纹理对象但不是立方体贴图，则params返回0.初始值为GL_TEXTURE_CUBE_MAP_POSITIVE_X。
+	注意：如果生成错误，则不会更改params的内容。
+	错误：GL_INVALID_ENUM：target不是GL_FRAMEBUFFER。
+		  GL_INVALID_ENUM：attachment不是GL_COLOR_ATTACHMENT0，GL_DEPTH_ATTACHMENT或GL_STENCIL_ATTACHMENT。
+		  GL_INVALID_ENUM：指定附着点处的附加对象为GL_RENDERBUFFER但pname不是GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE或GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME。
+		  GL_INVALID_ENUM：指定附着点处的附加对象是GL_TEXTURE但pname不是GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE，GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME，
+				GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL或GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE。
+		  GL_INVALID_ENUM：命名附加点上没有附加对象但pname不是GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE。
+		  GL_INVALID_OPERATION：绑定了默认帧缓冲区对象名称0。
+60.void glGetProgramInfoLog（GLuint program，GLsizei maxLength，GLsizei *length，GLchar *infoLog）;
+	功能：glGetProgramInfoLog- 返回program对象的信息日志
+	参数：program:指定要查询其信息日志的程序对象。
+		  maxLength:指定用于存储返回的信息日志的字符缓冲区的大小。
+		  length:返回infoLog中返回的字符串的长度（不包括空终止符）。
+		  infoLog:指定用于返回信息日志的字符数组。
+	描述：glGetProgramInfoLog返回指定程序对象的信息日志。 在链接或验证程序对象时，将修改程序对象的信息日志。 	
+		  返回的字符串将以空结尾。glGetProgramInfoLog尽可能多地在infoLog中返回信息日志，最多可返回maxLength个字符。
+		  实际返回的字符数（不包括空终止字符）由length指定。 如果不需要返回字符串的长度，则可以在length参数中传递NULL值。 可以通过调用值为GL_INFO_LOG_LENGTH的glGetProgramiv来获取存储返回的信息日志所需的缓冲区大小。程序对象的信息日志是一个字符串，其中可能包含诊断信息，警告信息以及有关上次编译操作的其他信息。创建程序对象时，其信息日志将为长度为0的字符串。
+	注意：程序对象的信息日志是OpenGL实现者用于传达有关链接或验证程序的信息的主要机制。 因此，即使链接或验证成功，信息日志也可以在开发过程中对应用程序开发人员有所帮助。 
+	      应用程序开发人员不应期望不同的OpenGL实现生成相同的信息日志。
+	错误：GL_INVALID_VALUE：program不是OpenGL生成的值。
+		  GL_INVALID_OPERATION：program不是程序对象。
+		  GL_INVALID_VALUE：maxLength小于0
+61.void glGetProgramiv（GLuint program,GLenum pname,GLint *params）;
+	功能：glGetProgramiv- 从program对象返回一个参数的值
+	参数：program:指定要查询的program对象。
+		  pname:指定program对象参数。 接受的符号名称为GL_DELETE_STATUS，GL_LINK_STATUS，GL_VALIDATE_STATUS，GL_INFO_LOG_LENGTH，GL_ATTACHED_SHADERS，GL_ACTIVE_ATTRIBUTES，
+				GL_ACTIVE_UNIFORMS，GL_ACTIVE_ATTRIBUTE_MAX_LENGTH，GL_ACTIVE_UNIFORM_MAX_LENGTH。
+		  params：返回请求的对象参数的值。
+	描述：glGetProgramiv以params形式返回指定的program对象的参数值。 
+		  定义了以下参数：
+			GL_DELETE_STATUS：如果program当前标记为删除，则params返回GL_TRUE，否则返回GL_FALSE。
+			GL_LINK_STATUS：如果program的最后一个链接操作成功，则params返回GL_TRUE，否则返回GL_FALSE。
+		    GL_VALIDATE_STATUS：params返回GL_TRUE，program的最后一次验证操作成功了也返回GL_TRUE，否则返回GL_FALSE。
+			GL_INFO_LOG_LENGTH：params返回program信息日志中的字符数，包括空终止字符（即，存储信息日志所需的字符缓冲区的大小）。 如果程序没有信息日志，则返回值0。
+			GL_ATTACHED_SHADERS：params返回附加到program的着色器对象的数量。
+			GL_ACTIVE_ATTRIBUTES：params返回program的激活状态的属性变量数。
+			GL_ACTIVE_ATTRIBUTE_MAX_LENGTH：params返回program的最长激活状态的属性名称的长度，包括空终止字符（即，存储最长属性名称所需的字符缓冲区的大小）。 
+				如果不存在活动属性，则返回0。
+			GL_ACTIVE_UNIFORMS：params返回program的激活状态的统一变量的数量。
+			GL_ACTIVE_UNIFORM_MAX_LENGTH：params返回program的最长激活状态的统一变量名称的长度，包括空终止字符（即，存储最长统一变量名称所需的字符缓冲区的大小）。 
+				如果不存在活动的统一变量，则返回0。
+	注意：如果生成错误，则不会更改params的内容。
+62.void glGetShaderInfoLog（GLuint shader,GLsizei maxLength,GLsizei *length,GLchar *infoLog）;
+	功能：glGetShaderInfoLog - 返回着色器对象的信息日志
+	参数：shader：指定要查询其信息日志的着色器对象。
+		  maxLength：指定用于存储返回的信息日志的字符缓冲区的大小。
+		  length：返回infoLog中返回的字符串的长度（不包括空终止符）。
+		  infoLog：指定用于返回信息日志的字符数组。
+	描述：glGetShaderInfoLog返回指定着色器对象的信息日志。 编译着色器时，将修改着色器对象的信息日志。 返回的字符串将以空结尾。
+		  glGetShaderInfoLog尽可能多地在infoLog中返回信息日志，最多可返回maxLength个字符。实际返回的字符数（不包括空终止字符）由length指定。 如果不需要返回字符串的长度，则可以在length参数中传递NULL值。 可以通过调用值为GL_INFO_LOG_LENGTH的glGetShaderiv来获取存储返回的信息日志所需的缓冲区大小。着色器对象的信息日志是一个字符串，其中可能包含诊断信息，警告信息以及有关上次编译操作的其他信息。 创建着色器对象时，其信息日志将为长度为0的字符串。
+	注意：着色器对象的信息日志是OpenGL实现者用于传达有关编译过程的信息的主要机制。 因此，即使编译成功，信息日志也可以在开发过程中对应用程序开发人员有所帮助。 	
+		  应用程序开发人员不应期望不同的OpenGL实现生成相同的信息日志。
+	错误：GL_INVALID_VALUE：shader不是OpenGL生成的值。
+		  GL_INVALID_OPERATION：shader不是着色器对象。
+		  GL_INVALID_VALUE：maxLength小于0
+63.void glGetShaderPrecisionFormat(GLenum shaderType,GLenum precisionType,GLint *range,GLint *precision);
+	功能：glGetShaderPrecisionFormat - 返回不同着色器数字格式的范围和精度
+	参数：haderType：指定要查询的着色器的类型。必须是GL_VERTEX_SHADER或GL_FRAGMENT_SHADER。
+		  precisionType：指定要查询的数字格式，对应于着色器精度限定符和变量类型。必须是GL_LOW_FLOAT，GL_MEDIUM_FLOAT，GL_HIGH_FLOAT，GL_LOW_INT，GL_MEDIUM_INT或GL_HIGH_INT中的一个。
+		  range：指定指向两元素数组的指针，其中返回log以2为底格式的最小和最大为对数的值。
+		  precision：指定指向返回格式精度的log 2的位置的指针。
+	描述：glGetShaderPrecisionFormat返回具有低，中和高精度限定符的浮点和整数着色器变量格式的范围和精度限制。当minRep和maxRep是格式的最小和最大可表示值时，
+		  floor = log2⁡minRep和floor⁡=log2⁡maxRep分别作为第一个和第二个元素返回range。
+		  如果大于1的最小可表示值是1 +ε，则以精度返回floor⁡ -  log2⁡ε。整数格式的ε为1，因此将返回0.浮点格式将返回大于0的值。
+	注意：OpenGL ES着色语言规范中描述了不同格式所需的最小范围和精度。
+		  如果片段着色器不支持高精度浮点格式，则使用参数GL_FRAGMENT_SHADER和GL_HIGH_FLOAT调用glGetShaderPrecisionFormat将为range和precision返回0。
+		  对于顶点着色器，必须支持高精度浮点格式。着色器编译器支持是可选的，因此必须在使用之前通过使用参数GL_SHADER_COMPILER调用glGet来查询。 glShaderSource，glCompileShader，glGetShaderPrecisionFormat和glReleaseShaderCompiler将在不支持着色器编译器的实现上生成GL_INVALID_OPERATION。这样的实现提供了glShaderBinary替代方案，用于提供预编译的着色器二进制文件。如果生成错误，则不会更改range或precision的内容。
+	错误：GL_INVALID_OPERATION：不支持着色器编译器。
+	      GL_INVALID_ENUM：shaderType或precisionType不是可接受的值。
+64.void glGetShaderSource(GLuint shader,GLsizei bufSize,GLsizei *length,GLchar *source);
+	功能：glGetShaderSource - 从着色器对象返回源代码字符串
+	参数：shader：指定要查询的着色器对象。
+		  bufSize：指定用于存储返回的源代码字符串的字符缓冲区的大小。
+		  length：返回source中返回的字符串的长度（不包括null终止符）。
+		  source：指定用于返回源代码字符串的字符数组。
+	描述：glGetShaderSource返回由着色器指定的着色器对象的源代码字符串。着色器对象的源代码字符串是先前调用glShaderSource的结果。函数返回的字符串将以null结尾。
+		  glGetShaderSource尽可能多地在源代码中返回源代码字符串，最多可返回bufSize字符。实际返回的字符数（不包括空终止字符）由length指定。
+		  如果不需要返回字符串的长度，则可以在length参数中传递NULL值。可以通过调用值为GL_SHADER_SOURCE_LENGTH的glGetShaderiv来获取存储返回的源代码字符串所需的缓冲区大小。
+	错误：GL_INVALID_VALUE：shader不是OpenGL生成的值。
+		  GL_INVALID_OPERATION：shader不是着色器对象。
+		  GL_INVALID_VALUE：bufSize小于0。
+65.void glGetShaderiv（GLuint shader,GLenum pname,GLint *params）;
+	功能：glGetShaderiv-从着色器对象返回一个参数
+	参数：shader：指定要查询的着色器对象。
+		  pname：指定着色器对象的参数。可接受的符号名称为GL_SHADER_TYPE，GL_DELETE_STATUS，GL_COMPILE_STATUS，GL_INFO_LOG_LENGTH，GL_SHADER_SOURCE_LENGTH。
+		  params：返回请求的参数结果值。
+	描述：glGetShaderiv以params形式返回特定着色器对象的参数值。
+		  定义了以下参数：
+			GL_SHADER_TYPE：如果着色器是顶点着色器对象，则params返回GL_VERTEX_SHADER;如果着色器是片段着色器对象，则返回GL_FRAGMENT_SHADER。
+			GL_DELETE_STATUS：如果shader当前被标记为删除，则params返回GL_TRUE，否则返回GL_FALSE。
+			GL_COMPILE_STATUS：对于支持着色器编译器的实现，如果着色器上的最后一次编译操作成功，则params返回GL_TRUE，否则返回GL_FALSE。
+			GL_INFO_LOG_LENGTH：对于支持着色器编译器的实现，params返回着色器信息日志的字符数，包括空终止字符（即，存储信息日志所需的字符缓冲区的大小）。 
+				如果着色器没有信息日志，则返回值0。
+			GL_SHADER_SOURCE_LENGTH：对于支持着色器编译器的实现，params返回构成着色器着色器源的源字符串的串联长度，包括空终止字符。（即，存储着色器源所需的字符缓冲区的大小）。 
+				如果不存在源代码，则返回0。
+	注意：支持的着色器编译器是可选的，在使用之前可通过使用参数GL_SHADER_COMPILER调用glGet来查询。glShaderSource，glCompileShader，glGetShaderPrecisionFormat，
+		  glReleaseShaderCompiler等在不支持着色器编译器的实现上都将生成GL_INVALID_OPERATION。用glGetShaderiv去查询GL_COMPILE_STATUS，GL_INFO_LOG_LENGTH和GL_SHADER_SOURCE_LENGTH
+		  也返回GL_INVALID_OPERATION。这样提供了glShaderBinary替代方案，用于提供预编译的着色器二进制文件。如果生成错误，则不会更改params内容。
+	错误：GL_INVALID_ENUM：pname不是一个可接受的值。
+		  GL_INVALID_VALUE：shader不是OpenGL生成的值。
+		  GL_INVALID_OPERATION：不支持着色器编译器的情况下查询pname为GL_COMPILE_STATUS，GL_INFO_LOG_LENGTH或GL_SHADER_SOURCE_LENGTH（GL_SHADER_TYPE，GL_DELETE_STATUS不会报这个错）。
+		  GL_INVALID_OPERATION：shader没有关联着色器对象。
+66.const GLubyte* glGetString（GLenum name);
+	功能：glGetString-返回描述当前GL连接的字符串
+	参数：name：指定符号常量，GL_VENDOR，GL_RENDERER，GL_VERSION，GL_SHADING_LANGUAGE_VERSION或GL_EXTENSIONS之一。
+	描述：glGetString返回一个指向静态字符串的指针，该字符串描述当前GL连接的某些方面。 
+		  name可以是以下之一：
+			GL_VENDOR：返回负责此GL实施的公司。 此名称在发行版之间不会发生变化。
+		    GL_RENDERER：返回渲染器的名称。 此名称通常特定于硬件平台的特定配置。 它不会在发行版之间发生变化。
+			GL_VERSION：返回版本号
+			GL_SHADING_LANGUAGE_VERSION：返回着色语言的版本号或发行版号。
+			GL_EXTENSIONS：返回GL支持的空格分隔的扩展列表。
+		 由于GL不包含对实现的性能特征的查询，因此编写一些应用程序以识别已知平台并基于这些平台的已知性能特征修改其GL使用。字符串GL_VENDOR和GL_RENDERER一起唯一地指定平台。 它们不会在发行版之间发生变化，可以作为平台识别的算法使用。某些应用程序希望使用不属于标准GL的功能。 这些特征可以实现为标准GL的扩展。 GL_EXTENSIONS字符串是一个以空格分隔的受支持的GL扩展列表。（扩展名不包含空格字符）。所有字符串都以空值终止。
+	注意：如果生成错误，glGetString将会返回0。客户端和服务器可能支持不同的版本或扩展。 glGetString始终返回兼容的版本号或扩展列表。 版本号始终描述的是服务器。
+67.void glGetTexParameterfv(GLenum target,GLenum pname,GLfloat * params);
+   void glGetTexParameteriv(GLenum target,GLenum pname,GLint * params);
+	功能：glGetTexParameter - 返回纹理参数值
+	参数：target：指定活动纹理单元的目标纹理的符号名称。 GL_TEXTURE_2D和GL_TEXTURE_CUBE_MAP被接受。
+		  pname：指定纹理参数的符号名称。接受GL_TEXTURE_MAG_FILTER，GL_TEXTURE_MIN_FILTER，GL_TEXTURE_WRAP_S和GL_TEXTURE_WRAP_T。
+		  params：返回纹理参数。
+	描述：glGetTexParameter以params形式返回指定为pname的纹理参数的值。 target定义活动纹理单元的目标纹理（GL_TEXTURE_2D或GL_TEXTURE_CUBE_MAP），
+		  以指定二维或多维数据集映射纹理。 pname接受与glTexParameter相同的符号，具有相同的解释：
+		  GL_TEXTURE_MAG_FILTER：返回单值纹理放大过滤器，一个符号常量。初始值为GL_LINEAR。
+		  GL_TEXTURE_MIN_FILTER：返回单值纹理缩小过滤器，一个符号常量。初始值为GL_NEAREST_MIPMAP_LINEAR。
+		  GL_TEXTURE_WRAP_S：返回纹理坐标s的单值包装函数，即符号常量。初始值为GL_REPEAT。
+		  GL_TEXTURE_WRAP_T：返回纹理坐标t的单值包装函数，即符号常量。初始值为GL_REPEAT。
+	注意：如果生成错误，则不会更改params的内容。
+	错误：GL_INVALID_ENUM：target或pname不是可接受的值。
+68.void glGetUniformfv(GLuint program,GLint location,GLfloat *params);
+   void glGetUniformiv(GLuint program,GLint location,GLint *params);
+	功能：glGetUniform - 返回统一变量的值
+	参数：program：指定要查询的程序对象。
+		  location：指定要查询的统一变量的位置。
+		  params：返回指定的统一变量的值。
+	描述：glGetUniform以params形式返回指定统一变量的值。由location指定的统一变量的类型确定返回的值的数量。如果将着色器变量在着色器中定义为boolean，int或float，
+		  则将返回单个值。如果将其定义为vec2，ivec2或bvec2，则将返回两个值。如果将其定义为vec3，ivec3或bvec3，则将返回三个值，依此类推。要查询存储在声明为数组的统一变量中的值，
+		  请为数组的每个元素调用glGetUniform。要查询存储在声明为结构的统一变量中的值，请为结构中的每个字段调用glGetUniform。声明为矩阵的统一变量的值将按列主要顺序返回。
+		  在程序对象链接之前，不知道分配给统一变量的位置。发生链接后，命令glGetUniformLocation可用于获取统一变量的位置。然后可以将此位置值传递给glGetUniform，
+		  以查询统一变量的当前值。成功链接程序对象后，统一变量的索引值保持不变，直到发生下一个链接命令。如果链接成功，则只能在链接后查询统一变量值。
+	注意：如果生成错误，则不会更改params的内容。
+	错误：GL_INVALID_VALUE：program不是OpenGL生成的值。
+		  GL_INVALID_OPERATION：program不是程序对象。
+		  GL_INVALID_OPERATION：程序尚未成功链接。
+		  GL_INVALID_OPERATION：location不对应于指定程序对象的有效统一变量位置。
+69.GLint glGetUniformLocation（GLuint program,const GLchar *name）;
+	功能：glGetUniformLocation-返回统一变量的位置
+	参数：program：指定要查询的程序对象。
+		  name：要查询其位置的统一变量的名称。
+	描述：glGetUniformLocation返回一个整数，表示程序对象中特定统一变量的位置。name必须是不包含空格的空终止字符串。 
+		  name必须是程序中的活动统一变量名，它不能是结构，也不能是结构数组或向量或矩阵的子组件。如果name与程序中的活动统一变量不对应，或者name以保留前缀“gl_”开头，则此函数返回-1。
+		  可以通过为结构中的每个字段调用glGetUniformLocation来查询作为结构或结构数组的统一变量。数组元素运算符“[]”和结构字段运算符“.” 可以在name中使用，以便选择数组中的元素或结构中的字段。 使用这些运算符的结果不允许是另一个结构，结构数组或向量或矩阵的子组件。 除非name的最后一部分表示统一变量数组，否则可以使用数组的名称或使用“[0]”附加的名称来检索数组的第一个元素的位置。
+		  在程序对象成功链接之前，分配给统一变量的实际位置是不知道的。发生链接后，命令glGetUniformLocation可用于获取统一变量的位置。 然后可以将此位置值传递给glUniform以设置统一变量的值或glGetUniform以查询统一变量的当前值。成功链接程序对象后，统一变量的索引值保持不变，直到发生下一个链接命令。 如果链接成功，则只能在链接后查询统一变量位置和值。
+	错误：GL_INVALID_VALUE ：program不是OpenGL生成的值。
+		  GL_INVALID_OPERATION ：program不是程序对象。
+		  GL_INVALID_OPERATION ：program没有成功链接。
+70.void glGetVertexAttribfv(GLuint index,GLenum pname,GLfloat *params);
+   void glGetVertexAttribiv(GLuint index,GLenum pname,GLint *params);
+	功能：glGetVertexAttrib-返回通用顶点属性参数
+	参数：index：指定要查询的通用顶点属性参数。
+		  pname：指定要查询的顶点属性参数的符号名称。可接受的值为GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING，GL_VERTEX_ATTRIB_ARRAY_ENABLED，
+			 GL_VERTEX_ATTRIB_ARRAY_SIZE，GL_VERTEX_ATTRIB_ARRAY_STRIDE，GL_VERTEX_ATTRIB_ARRAY_TYPE，GL_VERTEX_ATTRIB_ARRAY_NORMALIZED或GL_CURRENT_VERTEX_ATTRIB。
+		  params：返回请求的数据。
+	描述：glGetVertexAttrib以params形式返回通用顶点属性参数的值。要查询的通用顶点属性由index指定，要查询的参数由pname指定。接受的参数名称如下：
+			GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING：params返回单个值，当前绑定到绑定点的缓冲区对象的名称对应于通用顶点属性数组索引。如果没有绑定缓冲区对象，则返回0。初始值为0。
+			GL_VERTEX_ATTRIB_ARRAY_ENABLED：如果启用了索引的顶点属性数组，则params返回非零（true）的单个值，如果禁用，则返回0（false）。初始值为GL_FALSE。
+			GL_VERTEX_ATTRIB_ARRAY_SIZE：params返回单个值，即index的顶点属性数组的大小。大小是顶点属性数组的每个元素的值的数量，它将是1,2,3或4.初始值是4。
+			GL_VERTEX_ATTRIB_ARRAY_STRIDE：params返回单个值，数组步长（索引的顶点属性数组中的连续元素之间的字节数）。值为0表示数组元素按顺序存储在内存中。初始值为0。
+			GL_VERTEX_ATTRIB_ARRAY_TYPE：params返回单个值，一个符号常量，指示索引的顶点属性数组的数组类型。可能的值为GL_BYTE，
+				GL_UNSIGNED_BYTE，GL_SHORT，GL_UNSIGNED_SHORT，GL_FIXED和GL_FLOAT。初始值为GL_FLOAT。
+			GL_VERTEX_ATTRIB_ARRAY_NORMALIZED：如果由index指示的顶点属性数组的定点数据类型在转换为浮点时被标准化，则params返回非零（true）的单个值，否则返回0（false）。
+				初始值为GL_FALSE。
+			GL_CURRENT_VERTEX_ATTRIB：params返回四个值，表示index指定的通用顶点属性的当前值。初始值为（0,0,0,1）。除GL_CURRENT_VERTEX_ATTRIB之外的所有参数都表示客户端状态。
+71.void glGetVertexAttribPointerv(GLuint index,GLenum pname,GLvoid **pointer);
+	功能：glGetVertexAttribPointerv - 返回指定的通用顶点属性指针的地址
+	参数：index：指定要返回的通用顶点属性参数。
+		  pname：指定要返回的通用顶点属性参数的符号名称。必须是GL_VERTEX_ATTRIB_ARRAY_POINTER。
+		  pointer：返回指针值。
+	描述：glGetVertexAttribPointerv返回指针信息。index是要查询的通用顶点属性，pname是指示要返回的指针的符号常量，params是指向放置返回数据的位置的指针。
+		  如果在先前指定了所需指针时将非零命名缓冲区对象绑定到GL_ARRAY_BUFFER目标（请参阅glBindBuffer），则返回的指针是缓冲区对象的数据存储中的字节偏移量。
+	注意：返回的指针是客户端状态。每个指针的初始值为0。
+	错误：GL_INVALID_ENUM：pname不是可接受的值。
+		  GL_INVALID_VALUE：index大于或等于GL_MAX_VERTEX_ATTRIBS。
+72.void glHint(GLenum target,GLenum mode);
+	功能：glHint - 指定特定于实现的提示
+	参数：target：指定一个符号常量，指示要控制的行为。接受GL_GENERATE_MIPMAP_HINT。
+		  mode：指定表示所需行为的符号常量。接受GL_FASTEST，GL_NICEST和GL_DONT_CARE。
+	描述：当存在解释空间时，GL行为的某些方面可以通过提示来控制。使用两个参数指定提示。 
+		  target是指示要控制的行为的符号常量，mode是指示所需行为的另一个符号常量。每个目标的初始值为GL_DONT_CARE。模式可以是以下之一：
+			GL_FASTEST：应该选择最有效的选择。
+			GL_NICEST：应选择最正确或最高质量的选项。
+			GL_DONT_CARE：都可以。
+		 虽然可以暗示的实现方面已经明确定义，但提示的解释取决于实现。可以使用target指定的提示方面以及建议的语义如下：
+			GL_GENERATE_MIPMAP_HINT：使用glGenerateMipmap生成mipmap图像时指示过滤的质量。
+	注意：提示的解释取决于实施。某些实现忽略glHint设置。目前只是在生成mipmap的时候有用到吧。
+	错误：GL_INVALID_ENUM：target或mode不是可接受的值。
+73.GLboolean glIsBuffer（GLuint buffer）;
+	功能：glIsBuffer - 确定名称是否对应于缓冲区对象
+	参数：buffer：指定一个值，该值可能是缓冲区对象的名称。
+	描述：如果buffer当前是缓冲区对象的名称，glIsBuffer将返回GL_TRUE。 如果buffer为零，或者是当前不是缓冲区对象名称的非零值，或者发生错误，则glIsBuffer返回GL_FALSE。
+		  glGenBuffers返回的名称，但尚未通过调用glBindBuffer与缓冲区对象关联，不是缓冲区对象的名称。
+74.GLboolean glIsEnabled（GLenum cap）;
+	功能：glIsEnabled - 测试是否启用了某功能
+	参数：cap：指定表示GL功能的符号常量。
+	描述：如果cap是启用的功能，glIsEnabled将返回GL_TRUE，否则返回GL_FALSE。 初始化时禁用除GL_DITHER之外的所有功能; GL_DITHER初始化时启用。
+		  cap接受以下常量：
+				常量						另见
+				GL_BLEND					glBlendFunc
+				GL_CULL_FACE				glCullFace
+				GL_DEPTH_TEST				glDepthFunc，glDepthRangef
+				GL_DITHER					glEnable
+				GL_POLYGON_OFFSET_FILL		glPolygonOffset
+				GL_SAMPLE_ALPHA_TO_COVERAGE	glSampleCoverage
+				GL_SAMPLE_COVERAGE			glSampleCoverage
+				GL_SCISSOR_TEST				glScissor
+				GL_STENCIL_TEST 			glStencilFunc，glStencilOp
+	注意：如果生成错误，glIsEnabled将返回0。
+	错误：GL_INVALID_ENUM ：cap不是上述可接受的值。
+75.GLboolean glIsFramebuffer（GLuint framebuffer）;
+	功能：glIsFramebuffer-确定名称是否对应于帧缓冲区对象
+	参数：framebuffer：指定一个值，该值可能是帧缓冲区对象的名称。
+	描述：如果framebuffer当前是帧缓冲区对象的名称，glIsFramebuffer将返回GL_TRUE。 
+		  如果framebuffer为零，或者是当前不是帧缓冲区对象名称的非零值，或者发生错误，则glIsFramebuffer返回GL_FALSE。
+		  glGenFramebuffers返回的名称，但尚未通过调用glBindFramebuffer与帧缓冲区对象关联，不是帧缓冲区对象的名称。
+76.GLboolean glIsProgram（GLuint program）;
+	功能：glIsProgram- 判断一个名称是否与一个program对象相对应。
+	参数：program：指定一个潜在的（可能的）program对象
+	描述：如果参数program是之前用glCreateProgram创建的program对象的名称并且尚未使用glDeleteProgram方法来删除它，那么 glIsProgram方法将会返回GL_TRUE。
+		  如果参数program的值是0，或者是它不是program对象的名称所对应的非0值，或者发生了错误，那么glIsProgram方法都将返回GL_FALSE。
+	注意：如果program不是有效的program对象名称，那是不会生成错误的。
+		  如果program对象被glDeleteProgram标记为删除，但是仍然作为当前状态中的一部分被使用时，那参数program仍然会被当作是program对象，此时glIsProgram返回的结果将会是GL_TRUE。
+77.GLboolean glIsRenderbuffer（GLuint renderbuffer）;
+	功能：glIsRenderbuffer-确定名称是否对应于renderbuffer对象
+	参数：renderbuffer：指定一个值，该值可能是渲染缓冲区对象的名称。
+	描述：如果renderbuffer当前是渲染缓冲区对象的名称，glIsRenderbuffer将返回GL_TRUE。 
+		  如果renderbuffer为零，或者是当前不是渲染缓冲区对象名称的非零值，或者发生错误，则glIsRenderbuffer返回GL_FALSE。
+		  glGenRenderbuffers返回的名称，但尚未通过调用glBindRenderbuffer与渲染缓冲区对象关联，不是渲染缓冲区对象的名称。
+78.GLboolean glIsShader（GLuint shader）;
+	功能：glIsShader- 判断一个名称是否与一个shader对象相对应。
+	参数：shader：指定一个潜在的（可能的）shader对象。
+	描述：如果参数shader是由之前的glCreateShader方法创建出来的shader对象所对应的名称，并且尚未被glDeleteShader方法标记删除，那么glIsShader方法将返回GL_TRUE。
+		  如果参数shader的值是0，或者是一个不是shader对象所对应的名称的非0值，或者发生了错误，那么glIsShader方法都将返回GL_FALSE。
+	注意:如果参数shader不是一个有效的shader对象所对应的名称，那这是不会产生错误的。如果一个shader对象被glDeleteShader方法标记为删除，但是仍然被附着在一个program对象上的时候，
+		 那它仍然被当作是一个shader对象，并且glIsShader会返回GL_TRUE。（也就是说其实glDeleteShader只是标记一个shader要删除，但并不是真正的删除了，
+		 而且如果很长时间不再用它的时候才去回收它，但是如果这个shader对象附着在program对象上的时候，程序是不会回收它的，这个时候用glIsShader来判断，是会返回GL_TRUE的）。
+79.GLboolean glIsTexture(GLuint texture);
+	功能：glIsTexture-确定一个ID是否与纹理相对应。
+	参数：texture：指定一个可能是纹理ID的值。
+	描述：如果texture是一个纹理ID那么glIsTexture将返回GL_TRUE。如果texture的值是0或者非0但是不是纹理ID又或者有错误生成了glIsTexture都会返回GL_FALSE。
+		  如果这个texture确实是由glGenTextures生成的，但是还没有调用glBindTexture来关联，那么我们也认为这个texture不是纹理ID
+80.void glLineWidth（GLfloat width）;
+	功能：glLineWidth - 指定栅格化线条的宽度
+	参数：width：指定栅格化线条的宽度。初始值为1。
+	描述：glLineWidth指定线条的栅格化宽度。通过将提供的宽度四舍五入到最接近的整数来确定实际宽度。如果Δx> =Δy，则在每个光栅化的列中填充i个像素，其中i是宽度的舍入值。
+		  否则，在光栅化的每一行中填充i个像素。有一系列支持的线宽。仅保证宽度1是绝对支持的;其他的依赖于实现。要查询支持的宽度范围，请使用参数GL_ALIASED_LINE_WIDTH_RANGE调用glGet。
+	注意：查询GL_LINE_WIDTH时，始终返回glLineWidth指定的行宽。截断和四舍五入对指定值没有影响（就是查到的值还是width）。线宽可能因实现的最大值而被截断。
+		  使用GL_ALIASED_LINE_WIDTH_RANGE调用glGet以确定最大宽度。
+	错误：GL_INVALID_VALUE ：width<=0
+81.void glLinkProgram（GLuint program）;
+	功能：glLinkProgram-连接一个program对象。
+	参数：program：指定要链接的program对象的句柄。
+	描述：glLinkProgram链接program指定的program对象。附加到program的类型为GL_VERTEX_SHADER的着色器对象用于创建将在可编程顶点处理器上运行的可执行文件。 
+		  附加到program的类型为GL_FRAGMENT_SHADER的着色器对象用于创建将在可编程片段处理器上运行的可执行文件。
+		  链接操作的状态将存储为program对象状态的一部分。 如果程序对象链接没有错误并且可以使用，则此值将设置为GL_TRUE，否则将设置为GL_FALSE。 可以通过使用参数program和GL_LINK_STATUS调用glGetShaderiv来查询它。		作为链接操作成功的结果，属于program的所有激活的用户定义的统一变量的值将被初始化为0，并且将为每个program对象的活动统一变量分配一个可以通过调用glGetUniformLocation来查询的位置。 此外，任何尚未绑定到通用顶点属性索引的活动用户定义属性变量此时也将绑定到一个索引。
+		  由于OpenGL ES着色语言规范中指定的多种原因，program对象的链接可能会失败。 以下列出了导致链接错误的一些条件:
+			顶点着色器和片元着色器不同时存在于程序对象中。
+			已超出支持的活动属性变量数。
+			已超出统一变量的存储限制。
+			已超出支持的活动统一变量的数量。
+			顶点着色器或片段着色器缺失main函数。
+			片元着色器中实际使用的易变变量未在顶点着色器中以相同的方式声明（或根本未声明）。
+			对函数或变量名的引用尚未解析。
+			使用两种不同类型或两种不同的初始值声明的全局共享变量。
+			一个或多个附加的着色器对象尚未成功编译（通过glCompileShader）或未成功加载预编译的着色器二进制文件（通过glShaderBinary）。
+			绑定通用属性矩阵导致矩阵的某些行超出允许的最大值GL_MAX_VERTEX_ATTRIBS。
+			没有足够的连续顶点属性槽来绑定属性矩阵
+		 成功链接program对象后，可以通过调用glUseProgram使program对象成为当前状态的一部分。 无论链接操作是否成功，program对象的信息日志都将被覆盖。 可以通过调用glGetProgramInfoLog来检索信息日志。如果链接操作成功并且由于先前调用glUseProgram而指定的program对象当前已被使用，glLinkProgram还将安装生成的可执行文件作为当前呈现状态的一部分。如果当前正在使用的program对象重新链接失败，其链接状态将设置为GL_FALSE，但可执行文件和关联状态将保持当前状态的一部分，直到后续调用glUseProgram将其从使用中删除。 从使用中删除后，在成功重新链接之前，它不能成为当前状态的一部分。链接操作完成时，program对象的信息日志就被更新了，而且程序也被生成了。在链接操作之后，应用程序可以自由修改附加的着色器对象，编译附加的着色器对象，分离着色器对象，删除着色器对象以及附加其他着色器对象。 这些操作都不会影响信息日志或作为程序对象一部分的程序。
+	注意：如果链接操作不成功，则关于程序上的先前链接操作的任何信息都将丢失（即，失败的链接不会恢复旧的程序状态）。 
+		  即使链接操作不成功，仍然可以从程序中检索某些信息。 例如，glGetActiveAttrib和glGetActiveUniform。
+	错误：GL_INVALID_VALUE：如果program或shader不是由OpenGL所生成的值。
+		  GL_INVALID_OPERATION:如果program参数传的不是program对象。
+82.void glPixelStorei（GLenum pname,GLint param）;
+	功能：glPixelStorei-设置像素存储模式
+	参数：pname：指定要设置的参数的符号名称。一个值会影响像素数据到内存的打包：GL_PACK_ALIGNMENT。 另一个影响从内存中解压缩像素数据：GL_UNPACK_ALIGNMENT。
+		  param：指定pname设置的值。
+	描述：glPixelStorei设置像素存储模式，这些模式会影响后续glReadPixels的操作以及纹理模式的解包（请参阅glTexImage2D和glTexSubImage2D）。
+		  pname是一个符号常量，表示要设置的参数，param是新值。 一个存储参数会影响像素数据返回客户端内存的方式：
+			GL_PACK_ALIGNMENT:指定内存中每个像素行开头的对齐要求。允许值为1（字节对齐），2（行与偶数字节对齐），4（字对齐）和8（行从双字边界开始）。
+				另一个存储参数会影响从客户端内存中读取像素数据的方式：
+			GL_UNPACK_ALIGNMENT:指定内存中每个像素行开头的对齐要求。 允许值为1（字节对齐），2（行与偶数字节对齐），4（字对齐）和8（行从双字边界开始）。
+		  下表给出了可以使用glPixelStorei设置的每个存储参数的类型，初始值和有效值范围。
+			pname				类型	初始值	可用值
+			GL_PACK_ALIGNMENT	整型	4		1,2,4,8
+			GL_UNPACK_ALIGNMENT	整型	4		1,2,4,8
+		  如果param为0，则布尔参数设置为false，否则设置为true。
+	错误：GL_INVALID_ENUM ：如果pname不是可接受的值。
+		  GL_INVALID_VALUE ：如果指定对齐不是1,2,4或8。
+83.void glPolygonOffset（GLfloat factor,GLfloat units）;
+	功能：glPolygonOffset - 设置用于计算深度值的比例和单位
+	参数：factor：指定用于为每个多边形创建变量深度偏移的比例因子。初始值为0。
+		  units：乘以特定于实现的值以创建恒定的深度偏移。初始值为0。
+	描述：启用GL_POLYGON_OFFSET_FILL后，每个片段的深度值将在从相应顶点的深度值进行插值后进行偏移。
+		  偏移的值是factor×DZ + r×units，其中DZ是相对于多边形的屏幕区域的深度变化的度量，并且r是保证给定的可解析偏移的最小值实现。
+		  注意在执行深度测试并将值写入深度缓冲区之前添加偏移量。
+		  glPolygonOffset可用于渲染隐藏线图像，将贴花应用于曲面以及渲染具有突出显示边的实体。（用于解决Z-fighting）
+84.void glReadPixels（GLint x,GLint y,GLsizei width,GLsizei height,GLenum format,GLenum type,GLvoid * data）;
+	功能：glReadPixels-从帧缓冲区中读取一个像素块
+	参数：x，y：指定从帧缓冲区读取的第一个像素的窗口坐标。 此位置是矩形像素块的左下角。
+		  width,height：指定像素矩形的尺寸。 一个宽度和高度对应于单个像素。
+		  format：指定像素数据的格式。 接受以下符号值：GL_ALPHA，GL_RGB和GL_RGBA。
+		  type：指定像素数据的数据类型。 必须是GL_UNSIGNED_BYTE，GL_UNSIGNED_SHORT_5_6_5，GL_UNSIGNED_SHORT_4_4_4_4或GL_UNSIGNED_SHORT_5_5_5_1之一。
+		  data：返回像素数据。
+	描述：glReadPixels从帧缓冲区返回像素数据，从左下角位于（x，y）的像素开始，从位置data开始返回客户端内存。
+		  使用glPixelStorei命令设置的GL_PACK_ALIGNMENT参数会影响像素数据在放入客户端内存之前的处理。
+		  glReadPixels返回每个像素的值，左下角为x + i  y + j，0 <= i <width，0 <= j <height。该像素被称为第j行中的第i个像素。像素按行顺序从最低行返回到最高行，每行从左到右排列。
+		  format指定返回像素值的格式; 可接受的值是：GL_ALPHA、GL_RGB、GL_RGBA。从颜色缓冲区读取RGBA颜色分量。 每个颜色分量都转换为浮点，使零强度映射到0.0，全强度映射到1.0。丢弃不需要的数据。 例如，GL_ALPHA丢弃红色，绿色和蓝色组件，而GL_RGB仅丢弃alpha组件。 最终值被限制在[0 1]的范围内。最后，组件将转换为由类型指定合适的格式，。 当类型为GL_UNSIGNED_BYTE时，每个组件乘以2^8 - 1。 当类型为GL_UNSIGNED_SHORT_5_6_5，GL_UNSIGNED_SHORT_4_4_4_4或GL_UNSIGNED_SHORT_5_5_5_1时，每个分量乘以2^N-1，其中N是位域中的位数。返回值按如下方式放入内存中。 如果format是GL_ALPHA，则返回单个值，并且第j行中第i个像素的数据放置在位置j*width + i中。 GL_RGB返回三个值，GL_RGBA为每个像素返回四个值，所有值对应于占据数据中连续空间的单个像素。 由glPixelStorei设置的存储参数GL_PACK_ALIGNMENT会影响数据写入内存的方式。 有关说明，请参阅glPixelStorei。
+	注意：如果当前绑定的帧缓冲区不是默认的帧缓冲区对象，则从附加到GL_COLOR_ATTACHMENT0附着点的彩色图像中读取颜色分量。
+		  只有两个format/type参数对是可接受的。GL_RGBA / GL_UNSIGNED_BYTE是始终都可以接受的，另外的就需要查询了：通过查询GL_IMPLEMENTATION_COLOR_READ_FORMAT和GL_IMPLEMENTATION_COLOR_READ_TYPE来发现其他可接受的类型对。位于连接到当前GL上下文的窗口之外的像素值是未定义的。如果生成错误，则不会更改data内容。
+
+	错误：GL_INVALID_ENUM ：如果format或type不是可接受的值。
+		  GL_INVALID_VALUE ：如果width或height是负数
+		  GL_INVALID_OPERATION ：如果type为GL_UNSIGNED_SHORT_5_6_5且格式不是GL_RGB。
+		  GL_INVALID_OPERATION ：如果type为GL_UNSIGNED_SHORT_4_4_4_4或GL_UNSIGNED_SHORT_5_5_5_1且格式不是GL_RGBA。
+		  GL_INVALID_OPERATION ：如果format和type分别既不是GL_RGBA又不是GL_UNSIGNED_BYTE，也不是通过查询GL_IMPLEMENTATION_COLOR_READ_FORMAT
+			和GL_IMPLEMENTATION_COLOR_READ_TYPE返回的格式/类型对。
+		  GL_INVALID_FRAMEBUFFER_OPERATION ：如果当前绑定的帧缓冲区不是帧缓冲区完成状态（即glCheckFramebufferStatus的返回值不是GL_FRAMEBUFFER_COMPLETE）。
+85.void glReleaseShaderCompiler（void）;
+	功能：glReleaseShaderCompiler - （提示）释放着色器编译器分配的资源
+	描述:对于支持着色器编译器的实现，glReleaseShaderCompiler释放着色器编译器分配的资源。这是应用程序的一个提示，即至少在一段时间内不太可能发生额外的着色器编译，
+		 并且着色器编译器消耗的资源可能会被释放并在其他地方更好地使用。但是，如果在调用glReleaseShaderCompiler之后调用glCompileShader，则必须恢复着色器编译器以服务编译请求，
+		 就像从未调用过glReleaseShaderCompiler一样。
+	注意:着色器编译器支持是可选的，因此必须在使用之前通过使用参数GL_SHADER_COMPILER调用glGet来查询。 
+         glShaderSource，glCompileShader，glGetShaderPrecisionFormat和glReleaseShaderCompiler将在不支持着色器编译器的实现上生成GL_INVALID_OPERATION。
+		 这样的实现提供了glShaderBinary替代方案，用于提供预编译的着色器二进制文件。
+	错误：GL_INVALID_OPERATION：如果实现不支持着色器编译器
+86.void glRenderbufferStorage（GLenum target, GLenum internalformat,GLsizei width,GLsizei height）;
+	功能：glRenderbufferStorage - 创建并初始化renderbuffer对象的数据存储
+	参数：target：指定renderbuffer目标。 符号常量必须为GL_RENDERBUFFER。
+		  internalformat：指定渲染缓冲区的颜色可渲染，深度可渲染或模板可渲染格式。 必须是以下符号常量之一：GL_RGBA4，GL_RGB565，GL_RGB5_A1，GL_DEPTH_COMPONENT16或GL_STENCIL_INDEX8。
+		  width：指定渲染缓冲区的宽度（以像素为单位）。
+		  height：指定渲染缓冲区的高度（以像素为单位）。
+	描述：glRenderbufferStorage建立renderbuffer对象图像的数据存储，格式和尺寸。 删除渲染缓冲区的任何现有数据存储，则新数据存储的内容为未定义的。
+		  实现可以基于任何glRenderbufferStorage参数（target除外）改变其内部组件分辨率的分配，但是分配和选择的内部格式不能是任何其他状态的函数，并且一旦建立就不能改变。 可以使用glGetRenderbufferParameteriv查询分配的图像的每个分量的实际分辨率。
+	错误：GL_INVALID_ENUM ：target不是GL_RENDERBUFFER。
+		  GL_INVALID_ENUM ：internalformat不是可接受的值。
+		  GL_INVALID_VALUE ：如果width或height小于零或大于GL_MAX_RENDERBUFFER_SIZE。
+		  GL_OUT_OF_MEMORY ：如果实现无法创建具有请求的width和height的数据存储。
+	      GL_INVALID_OPERATION ：如果绑定了保留的renderbuffer对象名称0。
+87.void glSampleCoverage(GLclampf value,GLboolean invert);
+	功能：glSampleCoverage - 指定多重采样覆盖率参数
+	参数：value:指定单个浮点样本覆盖率值。该值被限制在[0,1]的范围内。初始值为1.0。
+		  invert:指定一个布尔值，表示是否应反转coverage掩码。接受GL_TRUE和GL_FALSE。初始值为GL_FALSE。
+	描述：多重采样在各种依赖于实现的子像素位置处对像素进行多次采样以产生抗锯齿效果。如果启用了多重采样,将对点，线和多边形进行抗锯齿处理。
+		  value用于构造临时掩模，用于确定将用于解析最终片段颜色的样本。该掩码与多重采样计算生成的覆盖掩码一致。如果设置了反转标志，则反转临时掩码（所有位翻转），然后按位与计算。
+		  如果实现没有可用的多重采样缓冲区，或者禁用了多重采样，则仅使用单个样本计算像素的最终RGB颜色就会发生光栅化。
+		  如果实现支持多重采样缓冲区，并且启用了多重采样，则通过组合每个像素的多个采样来生成像素的最终颜色。每个样本都包含颜色，深度和模板信息，允许对每个样本执行这些操作。
+88.void glScissor(GLint x,GLint y,GLsizei width,GLsizei height);
+	功能：glScissor - 定义一个裁剪矩形区域
+	参数：x, y：指定矩形区域的左下角。最初（0,0）。
+		  width, height：指定矩形区域的宽度和高度。首次将GL上下文附加到窗口时，width和height将被设置为该窗口的尺寸。
+	描述：glScissor在窗口坐标中定义了一个称为裁剪框的矩形。前两个参数x和y指定框的左下角。 width和height指定框的宽度和高度。
+		  要启用和禁用裁剪测试，请使用参数GL_SCISSOR_TEST调用glEnable和glDisable。该测试最初被禁用。启用测试时，只能通过绘制命令修改位于剪刀框内的像素。
+		  窗口坐标在帧缓冲区像素的共享角上具有整数值。glScissor（0,0,1,1）只允许修改窗口中的左下角像素，而glScissor（0,0,0,0）不允许修改窗口中的任何像素。
+		  当裁剪测试被禁用时，就好像裁剪盒包含了整个窗口。
+	错误：GL_INVALID_VALUE：width或height为负。
+89.void glShaderBinary(GLsizei n,const GLuint *shaders,GLenum binaryformat,const void *binary,GLsizei length);
+	功能：glShaderBinary - 加载预编译的着色器二进制文件
+	参数：n：指定着色器中存在的着色器对象句柄的数量。
+		  shaders：指定指向将加载着色器二进制文件的着色器对象控制器数组的指针。
+		  binaryformat：指定着色器二进制格式。
+		  binary：指定指向客户端内存中着色器二进制数据的指针。
+		  length：指定着色器二进制数据的长度（以字节为单位）。
+	描述：对于支持它们的实现，glShaderBinary加载预编译的着色器二进制文件。着色器包含n个着色器对象句柄的列表。每个句柄都引用一种独特的着色器类型（顶点着色器或片段着色器）。
+		  二进制指向客户端内存中预编译的二进制着色器代码，binaryformat表示预编译代码的格式。
+		  根据定义指定二进制格式的扩展规范对二进制图像进行解码。 OpenGL ES没有定义特定的二进制格式，但确实提供了一种机制来获取扩展提供的这种格式的符号常量。可以通过查询GL_NUM_SHADER_BINARY_FORMATS的值来获取支持的着色器二进制格式的数量。支持的特定二进制格式列表可以通过查询GL_SHADER_BINARY_FORMATS的值来获得。
+		  根据着色器中着色器对象的类型，glShaderBinary将单独加载二进制顶点或片段着色器，或加载包含存储在同一二进制文件中的优化顶点和片段着色器对的可执行二进制文件。
+		  如果glShaderBinary失败，则不会恢复为其加载二进制文件的旧对象着色器对象。
+	注意：着色器二进制支持是可选的，因此必须在使用之前通过使用参数GL_NUM_SHADER_BINARY_FORMATS和GL_SHADER_BINARY_FORMATS调用glGet来查询。 
+		  glShaderBinary在不支持任何着色器二进制格式的实现上生成GL_INVALID_OPERATION错误。这样的实现提供了glShaderSource替代方案，用于提供用于编译的OpenGL ES着色语言着色器源。
+		  如果支持着色器二进制格式，则实现可能需要将一组优化的顶点和片段着色器二进制文件一起编译给glLinkProgram。未指定优化可能导致glLinkProgram失败。
+		  这种限制（如果存在）将记录在定义二进制格式的扩展规范中。
+	      调用glShaderBinary时，OpenGL会复制着色器二进制数据，因此应用程序可以在函数返回后立即释放其数据副本。
+	错误：GL_INVALID_ENUM：binaryformat不是GL_SHADER_BINARY_FORMATS中返回的受支持格式。
+		  GL_INVALID_VALUE：着色器中的任何值不是OpenGL生成的值。
+		  GL_INVALID_VALUE：二进制指向的数据格式与binaryformat不匹配。
+	      GL_INVALID_VALUE：n或length为负。
+	      GL_INVALID_OPERATION：着色器中的任何值不是着色器对象，或者着色器中有多个顶点着色器对象句柄或多个片段着色器对象句柄。
+90.void  glShaderSource（GLuint shader，GLsizei count，const GLchar * const *string，const GLint *length）;
+	功能：glShaderSource - 替换着色器对象中的源代码
+	参数：shader：要被替换源代码的着色器对象的句柄（ID）。
+		  count：指定字符串和长度数组中的元素数。
+		  string：指定指向包含要加载到着色器的源代码的字符串的指针数组。
+		  length：指定字符串长度的数组
+	描述：对于支持着色器编译器的实现，glShaderSource将着色器中的源代码设置为string指定的字符串数组中的源代码。先前存储在着色器对象中的任何源代码都将被完全替换。
+		  数组中的字符串数由count指定。 如果length为NULL，则认为每个字符串都以null结尾。如果length不是NULL，则它指向包含字符串的每个相应元素的字符串长度的数组。
+		  length数组中的每个元素可以包含相应字符串的长度（空字符不计为字符串长度的一部分）或小于0的值以表示该字符串为空终止。此时不扫描或解析源代码字符串; 它们只是复制到指定的着色器对象中。
+	注意：着色器编译器支持是可选的，因此必须在使用之前通过使用参数GL_SHADER_COMPILER调用glGet来查询。
+		  glShaderSource，glCompileShader，glGetShaderPrecisionFormat，glReleaseShaderCompiler等在不支持着色器编译器的实现上都将生成GL_INVALID_OPERATION。
+		  这样的实现提供了glShaderBinary替代方案，用于提供预编译的着色器二进制文件。调用glShaderSource时，OpenGL会复制着色器源代码字符串，
+		  因此应用程序可以在函数返回后立即释放源代码字符串的副本。
+	错误：GL_INVALID_OPERATION：不支持着色器编译器
+		  GL_INVALID_VALUE：shader不是OpenGL生成的值
+		  GL_INVALID_OPERATION：shader不是着色器对象
+		  GL_INVALID_VALUE：count比0小
+91.void glStencilFunc(GLenum func,GLint ref,GLuint mask);
+   void glStencilFuncSeparate(GLenum face,GLenum func,GLint ref,GLuint mask);
+	功能：glStencilFunc-设置模板测试的前后功能和参考值
+		  glStencilFuncSeparate-设置模板测试的前端和/或后端功能和参考值
+	参数：face：指定是否更新前和/或后模板状态。三个符号常量有效：GL_FRONT，GL_BACK和GL_FRONT_AND_BACK。
+		  func：指定测试功能。八个符号常量有效：GL_NEVER，GL_LESS，GL_LEQUAL，GL_GREATER，GL_GEQUAL，GL_EQUAL，GL_NOTEQUAL和GL_ALWAYS。初始值为GL_ALWAYS。
+		  ref：指定模板测试的参考值。 ref被截断到[0,2^n - 1]的范围，其中n是模板缓冲器中的位平面数。初始值为0。
+		  mask：指定在测试完成时与参考值和存储的模板值进行AND运算的掩码。初始值全是1。
+	描述：与深度缓冲一样，模板测试可以在每个像素的基础上启用和禁用绘图。首先使用GL绘图基元绘制模板平面，
+		  然后使用模板平面渲染几何体和图像以屏蔽部分屏幕。 Stenciling通常用于多通道渲染算法以实现特殊效果，例如贴花，轮廓和构造性实体几何渲染。模板测试基于参考值和模板缓冲器中的值之间的比较结果有条件地消除像素。
+		  要启用和禁用测试，请使用参数GL_STENCIL_TEST调用glEnable和glDisable。要根据模板测试的结果指定操作，请调用glStencilOp或glStencilOpSeparate。
+		  可以有两组独立的func，ref和mask参数;一个影响面向后的多边形，另一个影响前面的多边形以及其他非多边形基元。 glStencilFunc将前后模板状态设置为相同的值。使用glStencilFuncSeparate将前后模板状态设置为不同的值。func是一个符号常量，用于确定模板比较函数。它接受八个值中的一个，如下面的列表所示。 ref是在模板比较中使用的整数参考值。它被截断到[0,2^n - 1]的范围，其中n是模板缓冲器中的位平面数。mask与参考值和存储的模板值进行按位AND运算。
+		  如果模板表示存储在相应模板缓冲区位置中的值，则以下列表显示可由func指定的每个比较函数的效果。仅当比较成功时，像素才会传递到光栅化过程中的下一个阶段（请参阅glStencilOp）。
+		  所有测试都将模板值视为[0,2^n - 1]范围内的无符号整数，其中n是模板缓冲区中的位平面数。
+		  func接受以下值：
+				GL_NEVER：总是失败。
+				GL_LESS：( ref & mask ) < ( stencil & mask ) 则通过。
+				GL_LEQUAL：( ref & mask ) <= ( stencil & mask )则通过。
+				GL_GREATER：( ref & mask ) > ( stencil & mask )则通过。
+				GL_GEQUAL：( ref & mask ) >= ( stencil & mask )则通过。
+				GL_EQUAL：( ref & mask ) = ( stencil & mask )则通过。
+				GL_NOTEQUAL：( ref & mask ) != ( stencil & mask )则通过。
+				GL_ALWAYS：总是通过。
+		注意：最初，模板测试被禁用。如果没有模板缓冲区，则不会发生模板修改，就好像模板测试总是通过一样。
+			  glStencilFunc与调用glStencilFuncSeparate并将face设置为GL_FRONT_AND_BACK相同。
+		错误：GL_INVALID_ENUM：face不是GL_FRONT，GL_BACK或GL_FRONT_AND_BACK
+			  GL_INVALID_ENUM：func不是八个接受值之一。
+92.void glStencilMask（GLuint mask）;
+	功能：glStencilMask - 控制模板平面中各个位的正面和背面写入
+	参数：mask：指定位掩码以启用和禁用模板平面中各个位的写入。最初，mask全是1。
+	描述：glStencilMask控制模板平面中各个位的写入。掩码的最低有效n位，其中n是模板缓冲区中的位数，指定掩码。如果掩码中出现1，则可以写入模板缓冲区中的相应位。
+		  出现0时，相应的位被写保护。最初，所有位都被启用以进行写入。可以有两个独立的掩码writemasks;一个影响面向后的多边形，另一个影响前面的多边形以及其他非多边形基元。 glStencilMask将前后模板写入掩码设置为相同的值。使用glStencilMaskSeparate将前后模板写掩码设置为不同的值。
+	注意：glStencilMask与将face设置为GL_FRONT_AND_BACK时调用glStencilMaskSeparate相同。
+93.void glStencilMaskSeparate(GLenum face,GLuint mask);
+	功能：glStencilFuncSeparate - 控制模板平面中各个位的正面和/或背面写入
+	参数：face：指定是否更新前和/或后模板写掩码。三个符号常量有效：GL_FRONT，GL_BACK和GL_FRONT_AND_BACK。
+		  mask：指定位掩码以启用和禁用模板平面中各个位的写入。最初，face全是1。
+	描述：glStencilMaskSeparate控制模板平面中各个位的写入。掩码的最低有效n位，其中n是模板缓冲区中的位数，指定掩码。如果掩码中出现1，则可以写入模板缓冲区中的相应位。
+		  出现0时，相应的位被写保护。最初，所有位都被启用以进行写入。可以有两个独立的掩码写掩码;一个影响面向后的多边形，另一个影响前面的多边形以及其他非多边形基元。 glStencilMask将前后模板写入掩码设置为相同的值，就像调用glStencilMaskSeparate并将face设置为GL_FRONT_AND_BACK一样。
+	错误：GL_INVALID_ENUM：face不是GL_FRONT，GL_BACK或GL_FRONT_AND_BACK
+94.void glStencilOp(GLenum sfail,GLenum dpfail,GLenum dppass);
+   void glStencilOpSeparate(GLenum face,GLenum sfail,GLenum dpfail,GLenum dppass);
+	功能：glStencilOp-设置正面和背面模板测试操作
+		  glStencilOpSeparate-设置前端和/或后端模板测试操作
+	参数：face：指定是否更新前和/或后模板状态。三个符号常量有效：GL_FRONT，GL_BACK和GL_FRONT_AND_BACK。
+		  sfail：指定模板测试失败时要执行的操作。接受八个符号常量：GL_KEEP，GL_ZERO，GL_REPLACE，GL_INCR，GL_INCR_WRAP，GL_DECR，GL_DECR_WRAP和GL_INVERT。初始值为GL_KEEP。
+		  dpfail：指定模板测试通过时的模板操作，但深度测试失败。 dpfail接受与sfail相同的符号常量。初始值为GL_KEEP。
+		  dppass：指定模板测试和深度测试通过时的模板操作，或模板测试通过时的模板操作，并且未启用深度缓冲或深度测试。 dppass接受与sfail相同的符号常量。初始值为GL_KEEP。
+	描述：与深度缓冲一样，模板测试可以在每个像素的基础上启用和禁用绘图。首先使用GL绘图基元绘制模板平面，然后使用模板平面渲染几何体和图像以屏蔽部分屏幕。 
+		  Stenciling通常用于多通道渲染算法以实现特殊效果，例如贴花，轮廓和构造性实体几何渲染。模板测试基于参考值和模板缓冲器中的值之间的比较结果有条件地消除像素。
+		  要启用和禁用测试，请使用参数GL_STENCIL_TEST调用glEnable和glDisable。要控制它，请调用glStencilFunc或glStencilFuncSeparate。
+		  可以有两组独立的sfail，dpfail和dppass参数;一个影响面向后的多边形，另一个影响前面的多边形以及其他非多边形基元。 
+		  glStencilOp将前后模板状态设置为相同的值，就像调用glStencilOpSeparate并将face设置为GL_FRONT_AND_BACK一样。
+	      glStencilOp/glStencilOpSeparate接受三个参数，指示在启用模板处理时存储的模板值会发生什么。如果模板测试失败，则不会更改像素的颜色或深度缓冲区，
+		  sfail指定模板缓冲区内容会发生什么。8种可能性:
+			GL_KEEP：保持当前值。
+		    GL_ZERO：将模板缓冲区值设置为0。
+			GL_REPLACE：将模板缓冲区值设置为ref，由glStencilFunc指定。
+			GL_INCR：增加当前模板缓冲区值。截断到最大的可表示无符号值。
+			GL_INCR_WRAP：增加当前模板缓冲区值。当递增最大可表示无符号值时，将模板缓冲区值包含到零。
+			GL_DECR：减少当前的模板缓冲区值。截断到0。
+			GL_DECR_WRAP：减少当前的模板缓冲区值。在将模板缓冲区值减小为零时，将模板缓冲区值包装到最大可表示无符号值。
+			GL_INVERT：按位反转当前模板缓冲区值。
+		  模板缓冲区值被视为无符号整数。递增和递减时，值被钳位为[0,2^n - 1]，其中n是查询GL_STENCIL_BITS返回的值。
+		  glStencilOp/glStencilOpSeparate的另外两个参数指定模板缓冲区操作，这些操作取决于后续深度缓冲区测试是成功（dppass）还是失败（dpfail）（请参阅glDepthFunc）。
+		  使用与sfail相同的八个符号常量指定操作。请注意，如果没有深度缓冲区，或者未启用深度缓冲区，则会忽略dpfail。在这些情况下，sfail和dppass分别在模板测试失败和通过时指定模板操作。
+	注意：最初，模板测试被禁用。如果没有模板缓冲区，则不会发生模板修改，就好像模板测试总是通过一样。
+	错误：GL_INVALID_ENUM：face不是GL_FRONT，GL_BACK或GL_FRONT_AND_BACK
+		  GL_INVALID_ENUM：sfail，dpfail或dppass是除八个定义的符号常量值之外的任何值。
+95.void glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid * data);
+	功能：glTexImage2D-指定一个二维的纹理图片
+	参数：target：指定活动纹理单元的目标纹理。必须是GL_TEXTURE_2D,GL_TEXTURE_CUBE_MAP_POSITIVE_X,GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+					GL_TEXTURE_CUBE_MAP_POSITIVE_Y,GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,GL_TEXTURE_CUBE_MAP_POSITIVE_Z,或GL_TEXTURE_CUBE_MAP_NEGATIVE_Z.
+		  level：指定细节级别，0级表示基本图像，n级则表示Mipmap缩小n级之后的图像（缩小2^n）
+		  internalformat：指定纹理内部格式，必须是下列符号常量之一：GL_ALPHA，GL_LUMINANCE，GL_LUMINANCE_ALPHA，GL_RGB，GL_RGBA。
+		  width height：指定纹理图像的宽高，所有实现都支持宽高至少为64 纹素的2D纹理图像和宽高至少为16 纹素的立方体贴图纹理图像 。
+		  border：指定边框的宽度。必须为0。
+		  format：指定纹理数据的格式。必须匹配internalformat。下面的符号值被接受：GL_ALPHA，GL_RGB，GL_RGBA，GL_LUMINANCE，和GL_LUMINANCE_ALPHA。
+		  type：指定纹理数据的数据类型。下面的符号值被接受：GL_UNSIGNED_BYTE，GL_UNSIGNED_SHORT_5_6_5，GL_UNSIGNED_SHORT_4_4_4_4，和GL_UNSIGNED_SHORT_5_5_5_1。
+		  data：指定一个指向内存中图像数据的指针。
+	描述：纹理将指定纹理图像的一部分映射到纹理化为活动的每个图形基元上。当前片段着色器或顶点着色器使用内置纹理查找函数时，纹理处于活动状态。
+		  要定义纹理图像，请调用glTexImage2D。参数描述纹理图像的参数，如高度，宽度，细节级别（详见glTexParameter）以及格式。最后三个参数描述了图像在内存中的表示方式。
+		  数据从data一系列无符号字节或短路中读取，具体取决于type。当type是GL_UNSIGNED_BYTE，每个字节被解释为一个颜色分量。
+		  当type是以下当中的一个GL_UNSIGNED_SHORT_5_6_5，GL_UNSIGNED_SHORT_4_4_4_4或GL_UNSIGNED_SHORT_5_5_5_1，各无符号短值被解释为包含所有组件用于单个纹素，
+		  利用根据设置在颜色分量format。颜色分量被视为一个，两个，三个或四个值的组，也是基于format。组件组被称为纹理元素（纹素）。
+		  width × height个纹素将从内存中读取（起始位置就是data的起始地址）。默认情况下，这些纹素是从相邻的内存位置获取的，除了在读取所有width个纹素后，读指针前进到下一个四字节边界。
+		  glReadPixels使用参数GL_UNPACK_ALIGNMENT指定四字节行对齐，并且可以将其设置为一个，两个，四个或八个字节。
+		  第一个元素对应于纹理图像的左下角。后续元素从左到右通过纹理图像的最低行中的剩余纹素进行，然后在纹理图像的连续更高行中进行。 最后一个元素对应于纹理图像的右上角。
+		  format决定data中每个元素的组成。 它可以是以下符号值之一：
+			GL_ALPHA：每个元素都是单个alpha分量。 GL将其转换为浮点并通过将rgb三通道赋值为0组装成RGBA元素。 然后将每个元素的值范围截断于[0,1]。
+		    GL_RGB：每个元素都是RGB三元组。 GL将其转换为浮点，并通过为alpha赋值为1将其组装成RGBA元素。 然后将每个元素的值范围截断于[0,1]。
+			GL_RGBA：每个元素包含所有四个组件。 GL将其转换为浮点，然后将每个元素的值范围截断于[0,1]。
+			GL_LUMINANCE：每个元素是单个亮度值。 GL将其转换为浮点，然后通过将亮度值复制三次（红色，绿色和蓝色）并将为alpha赋值为1来将其组合成RGBA元素。
+				然后将每个元素的值范围截断于[0,1]。
+			GL_LUMINANCE_ALPHA：每个元素是“亮度-α”对。 GL将其转换为浮点，然后通过将亮度值复制三次（红色，绿色和蓝色）将其组装成RGBA元素。 然后将每个元素的值范围截断于[0,1]。
+		  颜色组件根据type转换为浮点。当type是GL_UNSIGNED_BYTE时，每个组件除以2 8 - 1。当type为GL_UNSIGNED_SHORT_5_6_5，GL_UNSIGNED_SHORT_4_4_4_4或GL_UNSIGNED_SHORT_5_5_5_1时，每个分量除以2 N-1，其中N是位域中的位数。
+	注意：internalformat必须匹配format。纹理图像处理期间不支持格式之间的转换。 type可以用作提示来指定所需的精度，但GL实现可以选择以任何内部分辨率存储纹理数组。
+	      data可能是一个空指针。在这种情况下，会分配纹理内存以适应宽度width和高度的纹理height。然后你可以下载子文本来初始化这个纹理内存。
+		  如果用户尝试将纹理图像的未初始化部分应用于基元，则图像未定义。glTexImage2D是用来指定 由glActiveTexture指定的 纹理单元 是二维纹理还是立体贴图纹理的。
+	错误：GL_INVALID_ENUM：如果target不是GL_TEXTURE_2D，GL_TEXTURE_CUBE_MAP_POSITIVE_X， GL_TEXTURE_CUBE_MAP_NEGATIVE_X，GL_TEXTURE_CUBE_MAP_POSITIVE_Y，
+		  GL_TEXTURE_CUBE_MAP_NEGATIVE_Y， GL_TEXTURE_CUBE_MAP_POSITIVE_Z，或 GL_TEXTURE_CUBE_MAP_NEGATIVE_Z。
+			GL_INVALID_ENUM：如果format或type不是可接受的值。
+			GL_INVALID_VALUE：如果target是立方体贴图中的一个2维贴图，但是宽和高却不相等。（立方体贴图每个维度都是相等的）
+			GL_INVALID_VALUE：level比0小。
+			GL_INVALID_VALUE：如果level大于log以2为低⁡max的对数。（max是target为GL_TEXTURE_2D时GL_MAX_TEXTURE_SIZE的返回值，
+				或者当target不是GL_TEXTURE_2D时GL_MAX_CUBE_MAP_TEXTURE_SIZE的返回值）
+			GL_INVALID_VALUE：当internalformat是一个不可接收的值。
+			GL_INVALID_VALUE：当height或width的值value或者当target为GL_TEXTURE_2D时value大于GL_MAX_TEXTURE_SIZE，
+				或者当target不为GL_TEXTURE_2D时value大于GL_MAX_CUBE_MAP_TEXTURE_SIZE。
+			GL_INVALID_VALUE：当border的值不为0时。
+			GL_INVALID_OPERATION：format和internalformat不匹配。
+			GL_INVALID_OPERATION：type是GL_UNSIGNED_SHORT_5_6_5但是format不是GL_RGB。
+			GL_INVALID_OPERATION：type是GL_UNSIGNED_SHORT_4_4_4_4或者GL_UNSIGNED_SHORT_5_5_5_1但format不是GL_RGBA。
+96.void glTexParameterf(GLenum target,GLenum pname,GLfloat param);
+   void glTexParameteri（GLenum target,GLenum pname,GLint param）；
+   void glTexParameterfv（GLenum target,GLenum pname,const GLfloat * params）；
+   void glTexParameteriv（GLenum target,GLenum pname,const GLint * params）；
+	功能：glTexParameter-设置纹理参数
+	参数：target：指定之前激活了的纹理要绑定到的一个目标。必须是GL_TEXTURE_2D 或GL_TEXTURE_CUBE_MAP。
+		  pname：指定一个单值纹理参数的符号名，pname可以是下列值之一：GL_TEXTURE_MIN_FILTER、GL_TEXTURE_MAG_FILTER、GL_TEXTURE_WRAP_S、GL_TEXTURE_WRAP_T。
+		  param：指定pname的值。
+		  params：指定pname存储的值的数组的指针。
+	描述：纹理贴图是一种将图像应用到对象表面的技术，就像图像是贴花或玻璃纸收缩包装一样。图像在纹理空间中创建，具有（s，t）坐标系。 
+		  纹理是二维或立方体映射的图像和一组参数，用于确定如何从图像中导出样本。glTexParameter将params中的一个或多个值分配给指定为pname的纹理参数。
+		  target定义激活的纹理单元的目标纹理，可以是GL_TEXTURE_2D 或GL_TEXTURE_CUBE_MAP。pname中接受以下符号：
+			GL_TEXTURE_MIN_FILTER：只要纹理贴图比要贴的区域大，就会使用这个纹理缩小功能。 有六个定义的缩小功能。 其中两个值使用最近的一个或最近的四个纹理元素来计算纹理值。 	
+				其他四个值用于mipmap。mipmap是一组有序的数组，以逐渐降低的分辨率表示相同的图像。如果纹理具有2 ^ n * 2 ^ m的维度，则存在max（n，m）+ 1个mipmap。第一个mipmap就是是原始纹理，尺寸为2 ^ n * 2 ^ m。每个后续的mipmap具有维度2 ^（k-1）* 2 ^（l-1），其中2 ^ k * 2 ^ l是前一个mipmap的维度，直到k = 0或l = 0。此时，后续的mipmap具有尺寸1 * 2 ^（l - 1）或2 ^（k - 1）* 1，直到最终的mipmap，其尺寸为1 * 1。
+				通过调用glTexImage2D，glCompressedTexImage2D，glCopyTexImage2D设置level参数来定义mipmap的级别。0级是原始纹理; level max（n，m）是最终的1 * 1 mipmap。params提供的缩小采样功能，可选参数如下：
+			GL_NEAREST：临近采样，返回与纹理像素的中心最接近（在曼哈顿距离内）的纹理元素的值。
+			GL_LINEAR：线性采样，返回最接近被纹理像素中心的四个纹理元素的加权平均值。
+			GL_NEAREST_MIPMAP_NEAREST：选择最接近匹配纹理像素大小的mipmap，并使用GL_NEAREST标准（最接近像素中心的纹理元素）来生成纹理值。
+			GL_LINEAR_MIPMAP_NEAREST：选择最接近匹配纹理像素大小的mipmap，并使用GL_LINEAR标准（最接近像素中心的四个纹理元素的加权平均值）来生成纹理值。
+			GL_NEAREST_MIPMAP_LINEAR：选择与纹理像素大小最匹配的两个mipmap，并使用GL_NEAREST标准（最接近像素中心的纹理元素）从每个mipmap生成纹理值。 
+				最终纹理值是这两个值的加权平均值。
+			GL_LINEAR_MIPMAP_LINEAR：选择与纹理像素大小最匹配的两个mipmap，并使用GL_LINEAR标准（最接近像素中心的四个纹理元素的加权平均值）从每个mipmap生成纹理值。 
+				最终纹理值是这两个值的加权平均值。随着在缩小过程中对更多纹理元素进行采样，将会出现更少的锯齿伪像。 虽然GL_NEAREST和GL_LINEAR缩小函数可以比其他四个更快，但它们仅采样一个或四个纹理元素来确定正在渲染的像素的纹理值，并且会产生莫尔条纹或粗糙的过渡。 GL_TEXTURE_MIN_FILTER的初始值为GL_NEAREST_MIPMAP_LINEAR。
+			GL_TEXTURE_MAG_FILTER：当纹理化的像素映射到小于或等于一个纹理元素的区域时，使用纹理放大功能。 它将纹理放大功能设置为GL_NEAREST或GL_LINEAR（见下文）。 
+				GL_NEAREST通常比GL_LINEAR快，但它会生成边缘更清晰的纹理图像，因为纹理元素之间的过渡不那么平滑。 GL_TEXTURE_MAG_FILTER的初始值为GL_LINEAR。
+			GL_NEAREST：临近采样，返回与纹理像素的中心最接近（在曼哈顿距离内）的纹理元素的值。
+			GL_LINEAR：线性采样，返回最接近被纹理像素中心的四个纹理元素的加权平均值。
+			GL_TEXTURE_WRAP_S：将纹理坐标s的wrap参数设置为GL_CLAMP_TO_EDGE，GL_MIRRORED_REPEAT或GL_REPEAT。GL_CLAMP_TO_EDGE会是坐标截取到[1/2N,1-1/2N]其中N是截取方向上纹理的大小。
+				GL_REPEAT会导致坐标的整数部分被忽略，GL只使用小数部分，从而创建一个重复模式。如果s的整数部分是偶数，则GL_MIRRORED_REPEAT使s坐标设置为纹理坐标的小数部分,
+				而如果这个整数部分是奇数的话，纹理坐标则被设置为1-frac(s),其中frac(s)代表s的小数部分。初始状态下，GL_TEXTURE_WRAP_S被设置为GL_REPEAT。
+			GL_TEXTURE_WRAP_T：将纹理坐标t的wrap参数设置为GL_CLAMP_TO_EDGE，GL_MIRRORED_REPEAT或GL_REPEAT。 
+				请参阅GL_TEXTURE_WRAP_S下的讨论。初始状态下，GL_TEXTURE_WRAP_S被设置为GL_REPEAT。
+	注意：假设从片段着色器或顶点着色器访问纹理，并将GL_TEXTURE_MIN_FILTER设置为mipmaps的其中一个一个。
+		 如果当前定义的纹理图像的尺寸（之前已经调用了glTexImage2D，glCompressedTexImage2D或glCopyTexImage2D）不遵循mipmap的正确顺序（如上所述），
+		 或者定义的纹理图像少于所需的纹理图像，或者 纹理图像用不同的格式或类型定义，那么纹理图像单元将返回（R，G，B，A）=（0,0,0,1）。
+		 同样，如果纹理图像的宽度或高度不是2的幂，并且GL_TEXTURE_MIN_FILTER设置为mipmap的功能之一或者GL_TEXTURE_WRAP_S或GL_TEXTURE_WRAP_T未设置为GL_CLAMP_TO_EDGE，
+		 则纹理图像单元将返回（R ，G，B，A）=（0,0,0,1）。glTexParameter为 通过调用glActiveTexture指定激活的纹理单元绑定纹理参数
+	错误：GL_INVALID_ENUM ：target或param不是预定的值。
+		  GL_INVALID_ENUM ：params应该有一个定义的符号常量值（基于pname的值）但却没有。
+97.void glTexSubImage2D（GLenum target,GLint level,GLint xoffset,GLint yoffset,GLsizei width,GLsizei height,GLenum format,GLenum type,const GLvoid * data）;
+	功能：glTexSubImage2D-指定二维纹理子图像
+	参数：target：指定活动纹理单元的目标纹理。必须是GL_TEXTURE_2D，GL_TEXTURE_CUBE_MAP_POSITIVE_X，GL_TEXTURE_CUBE_MAP_NEGATIVE_X，GL_TEXTURE_CUBE_MAP_POSITIVE_Y，
+					GL_TEXTURE_CUBE_MAP_NEGATIVE_Y，GL_TEXTURE_CUBE_MAP_POSITIVE_Z或GL_TEXTURE_CUBE_MAP_NEGATIVE_Z。
+		  level：指定详细级别编号。0级是基本图像级别。级别n是第n个mipmap缩小图像。
+		  xoffset：指定纹理数组中x方向的纹素偏移。
+		  yoffset：指定纹理数组中y方向的纹素偏移。
+		  width：指定纹理子图像的宽度。
+		  height：指定纹理子图像的高度。
+		  format：指定像素数据的格式。 接受以下符号值：GL_ALPHA，GL_RGB，GL_RGBA，GL_LUMINANCE和GL_LUMINANCE_ALPHA。
+		  type：指定像素数据的数据类型。 接受以下符号值：GL_UNSIGNED_BYTE，GL_UNSIGNED_SHORT_5_6_5，GL_UNSIGNED_SHORT_4_4_4_4和GL_UNSIGNED_SHORT_5_5_5_1。
+		  data：指定指向内存中图像数据的指针。
+	描述：纹理将指定纹理图像的一部分映射到纹理处于活动状态的每个图形基元上。当前片段着色器或顶点着色器使用内置纹理查找功能时，纹理处于活动状态。
+		  glTexSubImage2D重新定义了现有二维纹理图像的连续子区域。data引用的纹素将现有纹理数组的部分替换为x索引xoffset和xoffset + width - 1（含），
+		  y索引yoffset和yoffset + height - 1（含）。该区域可能不包括纹理数组范围之外的任何最初指定的那样的纹素。指定宽度或高度为零的子纹理不是错误的，但这样的规范是没有效果的。
+	注意：由glPixelStorei设置的存储参数GL_UNPACK_ALIGNMENT会影响从客户端内存中读取数据的方式。有关说明，请参阅glPixelStorei。
+		  glTexSubImage2D为当前纹理单元指定二维或立方体贴图子纹理，由glActiveTexture指定。
+	错误：GL_INVALID_ENUM ：如果target不是GL_TEXTURE_2D，GL_TEXTURE_CUBE_MAP_POSITIVE_X，GL_TEXTURE_CUBE_MAP_NEGATIVE_X，GL_TEXTURE_CUBE_MAP_POSITIVE_Y，
+			GL_TEXTURE_CUBE_MAP_NEGATIVE_Y，GL_TEXTURE_CUBE_MAP_POSITIVE_Z或GL_TEXTURE_CUBE_MAP_NEGATIVE_Z。
+		  GL_INVALID_ENUM ：如果format或type不是可接受的值。
+		  GL_INVALID_VALUE ：level<0
+	      GL_INVALID_VALUE :level>log以2为底，max的对数，其中max为GL_MAX_TEXTURE_SIZE返回的值
+		  GL_INVALID_VALUE ：xoffset < 0 , xoffset + width > w , yoffset < 0 , or yoffset + height > h，其中w是宽度，h是要修改的纹理图像的高度。
+		  GL_INVALID_VALUE ：如果width或height小于0。
+		  GL_INVALID_OPERATION ：如果纹理数组尚未由之前的glTexImage2D或glCopyTexImage2D操作定义（其内部格式与glTexSubImage2D的格式匹配）。
+		  GL_INVALID_OPERATION：如果type为GL_UNSIGNED_SHORT_5_6_5且格式不是GL_RGB。
+		  GL_INVALID_OPERATION ：如果type为GL_UNSIGNED_SHORT_4_4_4_4或GL_UNSIGNED_SHORT_5_5_5_1且格式不是GL_RGBA。
+98.glUniform
+	void glUniform1f(GLint location, GLfloat v0);
+	void glUniform2f(GLint location,  GLfloat v0, GLfloat v1);
+	void glUniform3f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
+	void glUniform4f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+	void glUniform1i(GLint location, GLint v0);
+	void glUniform2i(GLint location,GLint v0,GLint v1);
+	void glUniform3i(GLint location,GLint v0,GLint v1,GLint v2);
+	void glUniform4i(GLint location,GLint v0,GLint v1,GLint v2,GLint v3);
+	void glUniform1fv(GLint location,GLsizei count,const GLfloat *value);
+	void glUniform2fv(GLint location,GLsizei count,const GLfloat *value);
+	void glUniform3fv(GLint location,GLsizei count,const GLfloat *value);
+	void glUniform4fv(GLint location,GLsizei count,const GLfloat *value);
+	void glUniform1iv(GLint location,GLsizei count,const GLint *value);
+	void glUniform2iv(GLint location,GLsizei count,const GLint *value);
+	void glUniform3iv(GLint location, GLsizei count, const GLint *value);
+	void glUniform4iv(GLint location, GLsizei count, const GLint *value);
+	void glUniformMatrix2fv(GLint location,GLsizei countM,GLboolean transpose,const GLfloat *valueM);
+	void glUniformMatrix3fv(GLint location,GLsizei countM,GLboolean transpose,const GLfloat *valueM);
+	void glUniformMatrix4fv(GLint location,GLsizei countM,GLboolean transpose, const GLfloat *valueM);
+	功能：glUniform - 指定当前程序对象的统一变量的值
+	参数：location：指定要修改的统一变量的位置。
+		  v0，v1，v2，v3：指定要用于指定统一变量的新值。
+		  count：指定要修改的元素数。如果目标统一变量不是数组，则此值应为1;如果是数组，则应为1或更大。
+		  value：指定指向将用于更新指定统一变量的count值数组的指针。
+		  countM：指定要修改的矩阵数。如果目标统一变量不是矩阵数组，则该值应为1;如果是矩阵数组，则应为1或更大。
+		  transpose：指定在将值加载到统一变量时是否转置矩阵。 必须是GL_FALSE。
+		  valueM：指定指向将用于更新指定统一变量的countM值数组的指针。
+	描述：glUniform修改统一变量或统一变量数组的值。要被修改值的location是由glGetUniformLocation返回的值。
+		  glUniform通过调用glUseProgram对程序对象进行操作，该程序对象是当前状态的一部分。命令glUniform {1 | 2 | 3 | 4} {f | i}用于使用作为参数传递的值来更改由location指定的统一变量的值。命令中指定的数字应该与指定的统一变量的数据类型中的组件数相匹配（例如，1表示float，int，bool; 2表示vec2，ivec2，bvec2等）。后缀f表示正在传递浮点值;后缀i表示正在传递整数值，并且此类型还应与指定的统一变量的数据类型匹配。应使用此函数的i变体为定义为int，ivec2，ivec3，ivec4或这些变量的数组提供统一变量的值。f变量应该用于为float，vec2，vec3，vec4或这些类型的数组的统一变量提供值。 i或f变体可用于为bool，bvec2，bvec3，bvec4或这些的数组的均匀变量提供值。如果输入值为0或0.0f，则uniform变量将设置为false，否则将设置为true。程序对象成功链接时，程序对象中定义的所有活动统一变量都初始化为0。它们保留通过调用glUniform分配给它们的值，直到程序对象上的下一个成功链接操作再次初始化为0时为止。命令glUniform {1 | 2 | 3 | 4} {f | i} v可用于修改单个统一变量或统一变量数组。这些命令将个数和指针传递给要加载到统一变量或统一变量数组中的值。如果修改单个统一变量的值，则应使用1的计数，并且可以使用1或更大的计数来修改整个数组或数组的一部分。当从均匀变量数组中的任意位置m开始加载n个元素时，数组中的元素m + n-1将被替换为新值。如果m + n - 1大于统一变量数组的大小，则将忽略超出数组末尾的所有数组元素的值。命令名称中指定的数字表示每个元素的值的组件数，它应该与指定的统一变量的数据类型中的组件数相匹配（例如，1表示float，int，bool; 2表示vec2，ivec2，bvec2等）。命令名称中指定的数据类型必须与指定的统一变量的数据类型匹配，如前面对glUniform {1 | 2 | 3 | 4} {f | i}所述。
+		  对于统一变量数组，数组的每个元素都被认为是命令名称中指示的类型（例如，glUniform3f或glUniform3fv可用于加载vec3类型的统一变量数组）。要修改的统一变量数组的元素数由count指定
+		  命令glUniformMatrix {2 | 3 | 4} fv用于修改矩阵或矩阵数组。命令名称中的数字被解释为矩阵的维度。数字2表示2×2矩阵（即4个值），
+		  数字3表示3×3矩阵（即9个值），数字4表示4×4矩阵（即16个值）。假设每个矩阵按列主要顺序提供。 countM参数表示要传递的矩阵数。如果修改单个矩阵的值，则应使用计数1，并且可以使用大于1的计数来修改矩阵数组.
+	注意：glUniform1i和glUniform1iv是唯一可用于加载定义为采样器类型的统一变量的两个函数。使用任何其他函数加载采样器将导致GL_INVALID_OPERATION错误。
+		  如果count\countM大于1且指示的统一变量不是数组，则会生成GL_INVALID_OPERATION错误，并且指定的统一变量将保持不变。
+		  除了前面的异常之外，如果着色器中定义的统一变量的类型和大小与用于加载其值的命令名称中指定的类型和大小不匹配，则将生成GL_INVALID_OPERATION错误并生成指定的统一变量将保持不变。
+		  如果location是一个非-1的值，并且它不表示当前程序对象中的有效统一变量位置，则将生成错误，并且不会对当前程序对象的统一变量存储进行任何更改。如果location等于-1，
+		  则将默认忽略传入的数据，并且不会更改指定的统一变量。
+	错误：GL_INVALID_OPERATION：没有当前程序对象
+		  GL_INVALID_OPERATION：着色器中声明的统一变量的大小与glUniform命令指示的大小不匹配
+		  GL_INVALID_OPERATION ：如果此函数的整数变量之一用于加载float，vec2，vec3，vec4或其数组的统一变量，或者如果使用此函数的某个浮点变量来加载统一int，ivec2，
+			ivec3或ivec4类型的变量，或者这些变量的数组。
+		  GL_INVALID_VALUE：count<0
+		  GL_INVALID_VALUE：transpose不是GL_FALSE
+	      GL_INVALID_OPERATION：count大于1且指示的统一变量不是数组变量
+		  GL_INVALID_OPERATION：使用glUniform1i和glUniform1iv之外的命令加载采样器
+99.void glUseProgram（GLuint program）;
+	功能：glUseProgram-使用程序对象作为当前渲染状态的一部分
+	参数：program：指定程序对象的句柄，该程序对象的可执行文件将用作当前渲染状态的一部分。
+	描述：glUseProgram使用程序对象program作为当前渲染状态的一部分。通过使用glAttachShader成功将着色器对象附加到程序对象，使用glCompileShader成功编译着色器对象，
+		  并成功链接程序对象与glLinkProgram，之后就可以在程序对象中创建每个阶段的可执行文件。程序对象将会包含一个可执行文件，该文件将会运行顶点（类型为GL_VERTEX_SHADER 的着色器对象）和片元（类型为GL_FRAGMENT_SHADER 的着色器对象）处理器（前提是这两个着色器都成功的编译并被链接到程序对象上了）。
+		  在使用程序对象时，应用程序可以自由修改附着的着色器对象，编译附着的着色器对象，附着着色器对象以及分离或删除着色器对象。这些操作都不会影响属于当前状态的可执行文件。
+		  但是，如果链接操作成功，则重新链接当前正在使用的程序对象将安装程序对象作为当前渲染状态的一部分（请参阅glLinkProgram）。
+		  如果当前正在使用的程序对象重新链接失败，其链接状态将设置为GL_FALSE，但可执行文件和关联状态将保持当前状态的一部分，直到后续调用glUseProgram将其从使用中删除。
+		  从使用中删除后，在成功重新链接之前，它不能成为当前状态的一部分。
+		  如果program为0，则当前呈现状态引用无效的程序对象，并且会使得任何glDrawArrays或glDrawElements命令的顶点和片段着色器执行的结果未定义。
+	注意：与纹理对象和缓冲区对象一样，只要上下文的服务器端共享相同的地址空间，程序对象的名称空间就可以在一组上下文中共享。
+		  如果名称空间跨上下文共享，则也会共享任何附着对象和与这些附着对象关联的数据。
+		  当从不同的执行线程访问对象时，应用程序负责跨API调用提供同步。
+	错误：GL_INVALID_VALUE ：如果program是0，或者不是OpenGL生成的值。
+		  GL_INVALID_OPERATION ：program不是程序对象
+		  GL_INVALID_OPERATION ：如果program不能成为当前状态的一部分。
+100.void glValidateProgram（GLuint program）;
+	功能：glValidateProgram - 验证程序对象
+	参数：program：指定要验证的程序对象的句柄。
+	描述：glValidateProgram检查程序中包含的可执行文件是否可以在当前的OpenGL状态下执行。验证过程生成的信息将存储在程序的信息日志中。
+		  验证信息可以由空字符串组成，或者它可以是包含有关当前程序对象如何与当前OpenGL状态的其余部分交互的信息的字符串。
+		  这为OpenGL实现者提供了一种方式，可以传达有关当前程序效率低下，次优，无法执行等原因的更多信息。验证操作的状态将存储为程序对象状态的一部分。
+		  如果验证成功，则此值将设置为GL_TRUE，否则将设置为GL_FALSE。可以通过使用参数program和GL_VALIDATE_STATUS调用glGetProgramiv来查询它。
+		  如果验证成功，则保证在给定当前状态的情况下执行程序。否则，程序将保证不执行。
+		  此功能通常仅在应用程序开发期间有用。存储在信息日志中的信息字符串完全取决于实现;因此，应用程序不应期望不同的OpenGL实现生成相同的信息字符串。
+	注意：如果当前程序对象中的任何两个活动采样器具有不同类型，但是引用相同的纹理图像单元，则glDrawArrays或glDrawElements将生成错误GL_INVALID_OPERATION。
+		  应用程序在发出渲染命令时捕获这些错误可能很困难或导致性能下降（这是一个很耗时的操作，所以最好只在调试的时候调用）。
+		  因此，建议应用程序调用glValidateProgram以在应用程序开发期间检测这些问题。
+	错误：GL_INVALID_VALUE：program不是OpenGL生成的值
+		  GL_INVALID_OPERATION：program不是程序对象
+101.glVertexAttrib
+	void glVertexAttrib1f(GLuint index,GLfloat v0);
+	void glVertexAttrib2f(GLuint index,GLfloat v0, GLfloat v1);
+	void glVertexAttrib3f(GLuint index,GLfloat v0,GLfloat v1,GLfloat v2);
+	void glVertexAttrib4f(GLuint index,GLfloat v0,GLfloat v1,GLfloat v2,GLfloat v3);
+	void glVertexAttrib1fv(GLuint index,const GLfloat *v);
+	void glVertexAttrib2fv(GLuint index,const GLfloat *v);
+	void glVertexAttrib3fv(GLuint index,const GLfloat *v);
+	void glVertexAttrib4fv(GLuint index,const GLfloat *v);
+	功能：glVertexAttrib-指定通用顶点属性的值
+	参数：index：指定要修改的通用顶点属性的索引。
+		  v0，v1，v2，v3：指定要用于指定顶点属性的新值。
+		  v：指定指向要用于通用顶点属性的值数组的指针。
+	描述：glVertexAttrib入口点系列允许应用程序在编号位置传递通用顶点属性。通用属性定义为组织为数组的四组件值。
+		  此数组的第一个条目编号为0，并且数组的大小由依赖于实现的符号常量GL_MAX_VERTEX_ATTRIBS指定。
+		  可以使用glVertexAttrib调用修改此数组的各个元素，该调用指定要修改的元素的索引以及该元素的值。
+	      这些命令可用于指定index指定的通用顶点属性的一个，两个，三个或全部四个组件。命令名称中的1表示只传递一个值，它将用于修改通用顶点属性的第一个组件。
+		  第二个和第三个组件将设置为0，第四个组件将设置为1。同样，命令名称中的2表示为前两个组件提供值，第三个组件将设置为0 ，第四个组件将设置为1。
+		  命令名称中的3表示为前三个组件提供的值，第四个组件将设置为1，而名称中的4表示提供了值对于所有四个组件。字母f表示参数的类型为float。当v附加到名称时，
+		  命令可以获取指向浮点数组的指针。允许OpenGL ES着色语言属性变量的类型为mat2，mat3或mat4。可以使用glVertexAttrib入口点加载这些类型的属性。
+		  矩阵必须按列主要顺序加载到连续的通用属性槽中，每个通用属性槽中有一列矩阵。在顶点着色器中声明的用户定义的属性变量可以通过调用glBindAttribLocation绑定到通用属性索引。
+		  这允许应用程序在顶点着色器中使用描述性变量名称。对指定通用顶点属性的后续更改将立即反映为对顶点着色器中相应属性变量的更改。
+		  顶点着色器中的通用顶点属性索引和用户定义的属性变量之间的绑定是程序对象状态的一部分，但通用顶点属性的当前值不是。每个通用顶点属性的值是当前状态的一部分，
+		  即使使用了不同的程序对象，它也会被维护。应用程序可以自由修改未绑定到命名顶点着色器属性变量的通用顶点属性。这些值仅作为当前状态的一部分进行维护，顶点着色器不会访问这些值。
+		  如果在顶点着色器执行时未更新绑定到顶点着色器中的属性变量的通用顶点属性，则顶点着色器将重复使用当前顶点属性的当前值。
+	注意：应用程序可以将多个属性名称绑定到同一个通用顶点属性索引。这称为别名，只有在顶点着色器中只有一个别名属性变量处于活动状态时，
+		  或者如果没有通过顶点着色器的路径消耗多个别名到同一位置的属性时，才允许使用别名。不需要OpenGL实现来进行错误检查以检测别名，允许它们假设不会出现别名，
+		  并且允许它们采用仅在没有别名的情况下才能工作的优化。
+	错误：GL_INVALID_VALUE ：index>=GL_MAX_VERTEX_ATTRIBS
+102.void glVertexAttribPointer（GLuint index,GLint size,GLenum type,GLboolean normalized,GLsizei stride,const GLvoid * pointer）;
+	功能：glVertexAttribPointer - 定义通用顶点属性数据的数组
+	参数：index：指定要修改的通用顶点属性的索引。
+		  size：指定每个通用顶点属性的组件数。必须为1,2,3或4.初始值为4。
+		  type：指定数组中每个组件的数据类型。接受符号常量GL_BYTE，GL_UNSIGNED_BYTE，GL_SHORT，GL_UNSIGNED_SHORT，GL_FIXED或GL_FLOAT。 初始值为GL_FLOAT。
+		  normalized：指定在访问定点数据值时是应将其标准化（GL_TRUE）还是直接转换为定点值（GL_FALSE）。
+		  stride：指定连续通用顶点属性之间的字节偏移量。如果stride为0，则通用顶点属性被理解为紧密打包在数组中的。 初始值为0。
+		  pointer：指定指向数组中第一个通用顶点属性的第一个组件的指针。初始值为0。
+	描述：glVertexAttribPointer指定索引index处的通用顶点属性数组的位置和数据格式，以便在渲染时使用。size指定每个属性的组件数，并且必须为1,2,3或4。type指定每个组件的数据类型，
+		  stride指定从一个属性到下一个属性的字节跨度，允许将顶点和属性打包到单个数组中或存储在单独的数组中。
+		  如果设置为GL_TRUE，则normalized表示以整数格式存储的值将被映射到范围[-1,1]（对于有符号值）或[0,1]（对于无符号值），当它们被访问并转换为 浮点。 否则，值将直接转换为浮点数而不进行标准化。如果在指定通用顶点属性数组时将非零命名VBOid绑定到GL_ARRAY_BUFFER目标（请参阅glBindBuffer），则将pointer视为VBO的数据存储中的字节偏移量。 此外，VBO绑定（GL_ARRAY_BUFFER_BINDING）被保存为索引index的通用顶点属性数组客户端状态（GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING）。
+		  指定通用顶点属性数组时，除了当前顶点数组VBO绑定外，还将size，type，normalized，stride和pointer保存为客户端状态。要启用和禁用通用顶点属性数组，
+		  请使用index调用glEnableVertexAttribArray和glDisableVertexAttribArray。 如果启用，则在调用glDrawArrays或glDrawElements时使用通用顶点属性数组。
+	注意：每个通用顶点属性数组最初都被禁用，并且在调用glDrawElements或glDrawArrays时不会被访问。glVertexAttribPointer通常在客户端实现。
+	错误：GL_INVALID_ENUM：type不是可接收的值；
+		  GL_INVALID_VALUE：index大于或等于GL_MAX_VERTEX_ATTRIBS。
+		  GL_INVALID_VALUE：size的值不是1,2,3,4
+		  GL_INVALID_VALUE：stride是负数
+103.void glViewport（GLint x,GLint y,GLsizei width,GLsizei height）;
+	功能：glViewport-设置视口
+	参数：x, y：指定视口矩形的左下角坐标，以像素为单位，初始值为（0，0）。
+		  width, height：指定视口的宽高，当一个GLContext第一次绑定到一个窗口时，width, height就会被指定为该窗口的宽高。
+	描述：glViewport指定x和y从标准化设备坐标到窗口坐标的一个仿射变化。设(Xnd,Ynd)是标准化设备坐标（-1.0~1.0，0.0在设备中间），则窗口坐标（Xw,Yw)可以由以下公式推出：
+		  Xw=(Xnd+1)*(width/2)+X；Yw=(Ynd+1)*(height/2)+y;视口宽高会被默认限制到一定的范围内，视具体实现而定，可以通过glGet变量GL_MAX_VIEWPORT_DIMS得到。
+	错误：GL_INVALID_VALUE：width或height是负数

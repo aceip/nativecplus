@@ -1,0 +1,23 @@
+                    Executable : E:\Android\sdk\cmake\3.18.1\bin\cmake.exe
+arguments : 
+-HE:\Desktop\native\native_06\app\src\main\cpp
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=21
+-DANDROID_PLATFORM=android-21
+-DANDROID_ABI=arm64-v8a
+-DCMAKE_ANDROID_ARCH_ABI=arm64-v8a
+-DANDROID_NDK=E:\Android\sdk\ndk\21.4.7075529
+-DCMAKE_ANDROID_NDK=E:\Android\sdk\ndk\21.4.7075529
+-DCMAKE_TOOLCHAIN_FILE=E:\Android\sdk\ndk\21.4.7075529\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=E:\Android\sdk\cmake\3.18.1\bin\ninja.exe
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\Desktop\native\native_06\app\build\intermediates\cxx\RelWithDebInfo\5k1267k1\obj\arm64-v8a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=E:\Desktop\native\native_06\app\build\intermediates\cxx\RelWithDebInfo\5k1267k1\obj\arm64-v8a
+-DCMAKE_BUILD_TYPE=RelWithDebInfo
+-BE:\Desktop\native\native_06\app\.cxx\RelWithDebInfo\5k1267k1\arm64-v8a
+-GNinja
+jvmArgs : 
+
+
+                    Build command args: []
+                    Version: 2

@@ -61,7 +61,7 @@ build CMakeFiles/native_01.dir/native_01.cpp.o: CXX_COMPILER__native_01_Debug E$
 build E$:/Desktop/native/native_05/app/build/intermediates/cxx/Debug/2e3y5458/obj/arm64-v8a/libnative_01.so: CXX_SHARED_LIBRARY_LINKER__native_01_Debug CMakeFiles/native_01.dir/native_01.cpp.o | E$:/Android/SDK/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/aarch64-linux-android/21/liblog.so
   LANGUAGE_COMPILE_FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -O0 -fno-limit-debug-info
   LINK_FLAGS = -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments
-  LINK_LIBRARIES = -landroid  -lGLESv3  -llog  -latomic -lm
+  LINK_LIBRARIES = -landroid  -lGLESv3  -lEGL  -llog  -latomic -lm
   OBJECT_DIR = CMakeFiles\native_01.dir
   POST_BUILD = cd .
   PRE_LINK = cd .

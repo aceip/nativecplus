@@ -8,12 +8,13 @@ static def releaseTime() {
 
 
 android {
-    compileSdk 32
+    namespace 'com.example.sk_main'
+    compileSdk 35
 
     defaultConfig {
-        applicationId "com.example.native_05"
+        applicationId "com.example.sk_main"
         minSdk 21
-        targetSdk 32
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -36,7 +37,7 @@ android {
     applicationVariants.all {
         variant ->
             variant.outputs.all {
-                outputFileName = "native_${variant.versionName}_${releaseTime()}.apk"
+                outputFileName = "skpa_${variant.versionName}_${releaseTime()}.apk"
             }
     }
     lintOptions {
@@ -45,8 +46,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
     externalNativeBuild {
         cmake {
@@ -57,7 +58,6 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.12.0'
 }

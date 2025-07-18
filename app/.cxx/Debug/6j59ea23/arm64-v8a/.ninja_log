@@ -1,0 +1,6 @@
+# ninja log v5
+2	1646	774553772	CMakeFiles/sk_main.dir/sk_main.cpp.o	6631c7e57bcfed1f
+1653	1768	774553772	E:/Desktop/native_07_0.001.0002/app/build/intermediates/cxx/Debug/6j59ea23/obj/arm64-v8a/libsk_main.so	d25d359c4b989a47
+16	185	774554411	E:/Desktop/native_07_0.001.0002/app/build/intermediates/cxx/Debug/6j59ea23/obj/arm64-v8a/libsk_main.so	d25d359c4b989a47
+5	1200	774554533	CMakeFiles/sk_main.dir/sk_main.cpp.o	6631c7e57bcfed1f
+1200	1290	774554533	E:/Desktop/native_07_0.001.0002/app/build/intermediates/cxx/Debug/6j59ea23/obj/arm64-v8a/libsk_main.so	d25d359c4b989a47

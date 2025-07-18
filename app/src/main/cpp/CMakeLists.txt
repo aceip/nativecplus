@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.18.1)
 
 # Declares and names the project.
 
-project("native_05")
+project("skpa")
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -16,12 +16,12 @@ project("native_05")
 # Gradle automatically packages shared libraries with your APK.
 
 add_library( # Sets the name of the library.
-        native_01
+        sk_main
         # Sets the library as a shared library.
         SHARED
 
         # Provides a relative path to your source file(s). p
-        native_01.cpp
+        sk_main.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a
@@ -43,9 +43,10 @@ find_library( # Sets the name of the path variable.
 
 #add_executable(native_01.cpp)
 target_link_libraries( # Specifies the target library.
-        native_01
+        sk_main
         android
         GLESv3
+        EGL
         # Links the target library to the log library
         # included in the NDK.
         ${log-lib})
